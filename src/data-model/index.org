@@ -1,0 +1,17 @@
+#+TITLE: Data Model for Content Delivery Adapters
+#+AUTHOR: VLEAD
+#+DATE: [2016-11-08 Tue]
+#+PROPERTY: results output
+#+PROPERTY: exports code
+#+SETUPFILE: ../org-templates/level-1.org
+#+options: ^:nil
+#+LATEX: Literal LaTeX code for export
+
+* Introduction
+  The application or the system is abstracted as the data model.  The model
+  captures: the entities that comprise the system; relations and constraints
+  between these entities; and operations that entail a change in the state of
+  the system.
+
+  The purpose of this document is to describe the expected behaviour of the application.
+
