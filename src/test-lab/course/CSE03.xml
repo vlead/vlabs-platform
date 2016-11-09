@@ -1,0 +1,12 @@
+<course display_name="Data Structures"> 
+  <chapter url_name="Introduction"/>
+  <chapter url_name="Number_Systems"/>
+  <chapter url_name="Expression_Evaluation_using_Stacks"/>
+  <chapter url_name="Sorting_using_Arrays"/>
+  <chapter url_name="Polynomials_via_Linked_Lists"/>
+  <chapter url_name="Expression_Trees"/>
+  <chapter url_name="Search_Trees"/>
+  <chapter url_name="Graph_Traversals"/>
+  <chapter url_name="Shortest_Paths_in_Graphs"/>
+  <chapter url_name="Minimum_Spanning_Trees"/>
+</course>
