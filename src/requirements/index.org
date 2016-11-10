@@ -9,4 +9,34 @@
 
 * Introduction 
   The requirements of =Content Delivery Adapters= are listed here.
+ 
+* Authoring format
+  Lab sources has to be in =org= or =md= format.
 
+* Directory Structure 
+  Lab sources should have following directory structure.
+#+BEGIN_EXAMPLE
+|-- makefile
+|-- README.org
+`-- src
+    |-- exp1
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quiz.org
+    |   `-- Theory.org
+    |-- exp2
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quiz.org
+    |   `-- Theory.org
+    |-- index.org
+
+#+END_EXAMPLE
+* Building the Course
+  Generate all =org= files to =html= files.
+
+* Installer
+  An Installer will process and add necessary hooks to get the complete lab.
+
+* Adapter 
+  The Adapter should be able to deploy the lab for a given platform.
