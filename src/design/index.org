@@ -9,6 +9,16 @@
 
 * Introduction 
   The =design= of the =Content Delivery Adapters= is captured here.
+* Design
+  :PROPERTIES:
+  :CUSTOM_ID: design
+  :END:          
+    The following diagram captures the architecture of =content delivery
+    adapters= with different =platforms= and =services=.
 
+#+BEGIN_HTML
+<img src="https://docs.google.com/drawings/d/1YDiZqPrVxB14y1vLw9PMqIDDLoRTvjWoOa-udCyLxrk/pub?w=960&h=720">
+<p align="center"> Architecture </p>
+#+END_HTML
 
-
+  Click [[https://docs.google.com/drawings/d/1YDiZqPrVxB14y1vLw9PMqIDDLoRTvjWoOa-udCyLxrk/edit][here]] to edit the image.

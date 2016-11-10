@@ -8,7 +8,7 @@
 #+LATEX: Literal LaTeX code for export
 
 * Introduction 
-  The requirements of =Content Delivery Adapters= are listed here.
+  This document describes the requirements of =Content Delivery Adapters=.
  
 * Authoring format
   Lab sources has to be in =org= or =md= format.
