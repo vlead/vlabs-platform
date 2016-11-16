@@ -22,3 +22,220 @@
 #+END_HTML
 
   Click [[https://docs.google.com/drawings/d/1YDiZqPrVxB14y1vLw9PMqIDDLoRTvjWoOa-udCyLxrk/edit][here]] to edit the image.
+
+* Manual Procedure
+Step 1 : Clone the Lab from Github. 
+#+BEGIN_EXAMPLE
+git clone https://github.com/Virtual-Labs/data-structures-iiith.git
+#+END_EXAMPLE 
+
+Step 2 : Convert all source =html= files to either =org= or =md= using
+procedure mentioned in [[pandoc]] section.
+
+Step 3: Organize the converted =org= or =md= files as per the following
+directory structure.
+#+BEGIN_EXAMPLE
+|-- makefile
+|-- README.md
+`-- src
+    |-- exp1
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quize.org
+    |   |-- Simulation.org
+    |   `-- Theory.org
+    |-- exp10
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quiz.org
+    |   |-- Simulation.org
+    |   `-- Theory.org
+    |-- exp2
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quiz.org
+    |   |-- Simulation.org
+    |   `-- Theory.org
+    |-- exp3
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quize.org
+    |   |-- Simulation.org
+    |   `-- Theory.org
+    |-- exp4
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quize.org
+    |   |-- Simulation.org
+    |   `-- Theory.org
+    |-- exp5
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quiz.org
+    |   |-- Simulation.org
+    |   `-- Theory.org
+    |-- exp6
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quiz.org
+    |   |-- Simulation.org
+    |   `-- Theory.org
+    |-- exp7
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quiz.org
+    |   |-- Simulation.org
+    |   `-- Theory.org
+    |-- exp8
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quize.org
+    |   |-- Simulation.org
+    |   `-- Theory.org
+    |-- exp9
+    |   |-- Introduction.org
+    |   |-- Objective.org
+    |   |-- Quize.org
+    |   |-- Simulation.org
+    |   `-- Theory.org
+    |-- index.org
+
+#+END_EXAMPLE
+
+Step 4: Now push the sources(=org/md= files) to github repository.
+
+Step 5: Clone the  Lab repository from github whose sources are in =org/md= format.
+
+Step 6: Convert the =org= or =md= files to =html= using the procedure mentioned
+in [[pandoc]] section
+
+Step 7: Create a =lab-directory= in the local machine with the lab name which is used
+    for porting on Open edX. Also create =labspec.json= file inside the lab
+    directory. Find the example =labspec.json= format [[https://github.com/openedx-vlead/port-labs-to-openedx/blob/develop/src/porting-labs/labspec.json][here]]
+
+Step 8: Clone the  =port labs to Open Edx= repository from Github. 
+#+BEGIN_EXAMPLE
+git clone https://github.com/openedx-vlead/port-labs-to-openedx.git
+cd port-labs-to-openedx
+git checkout develop
+make
+#+END_EXAMPLE
+Step 9: Run the following command to create the directory structure.
+#+BEGIN_EXAMPLE
+python /build/code/src/automation.py <lab-directory-path>
+#+END_EXAMPLE
+
+Step 10: Copy the =html= files from =step6= to =lab-directory/html= folder.
+ 
+Step 11: Compress the lab directory into a tar.gz file using command 
+#+BEGIN_EXAMPLE
+cd ..
+tar -cvzf name-of-archive.tar.gz <lab-directory>=
+#+END_EXAMPLE
+
+Step 12: Login to OpenedX Studio and import the =lab.tar= file. 
+ 
+* Pandoc
+<<pandoc>> 
+Pandoc is a Haskell library for converting from one markup format to
+another, and a command-line tool.
+** Install Pandoc
+step 1: Install pandoc using the steps mentioned [[http://pandoc.org/installing.html][here]] 
+** Procedure to convert a file from html to md
+step 1:
+Create the following sample =test.html= file
+#+BEGIN_EXAMPLE
+<html>
+<h1>Test!</h1>
+<ul>
+<li>list one</li>
+<li>list two</li>
+</ul>
+</body>
+</html>
+#+END_EXAMPLE
+
+step 2: Use the following command to convert =html= to =md=.
+#+BEGIN_EXAMPLE
+pandoc test1.html -o test.md --parse-raw
+#+END_EXAMPLE
+
+Step 3: Following output will be generated
+#+BEGIN_EXAMPLE
+Test!
+=====
+
+-   list one
+-   list two
+#+END_EXAMPLE
+
+** Procedure to convert a file from html to org
+Step 1:
+Create the following sample =test.html= file
+#+BEGIN_EXAMPLE
+<html>
+<h1>Test</h1>
+<ul>
+<li>list one</li>
+<li>list two</li>
+</ul>
+</body>
+</html>
+#+END_EXAMPLE
+
+Step 2: Use the following command to convert =html= to =org=.
+#+BEGIN_EXAMPLE
+pandoc test.html -o test.org --parse-raw
+#+END_EXAMPLE
+
+Step 3: Following output will be generated
+
+#+BEGIN_EXAMPLE
+ * Test
+
+ -  list one
+ -  list two
+
+#+END_EXAMPLE
+
+Step 4: Convert =org= or =md= files to =html= by using following techniques.
+** Convert md to html
+
+setp 1: Create the following sample =test.md= file. 
+#+BEGIN_EXAMPLE
+# Test!
+
+This is a test of *pandoc*.
+
+- list one
+- list two
+
+#+END_EXAMPLE
+
+step 2: Use the following command to convert =md= to =html=.
+#+BEGIN_EXAMPLE
+pandoc test.md -f markdown -t html -s -o test1.html
+
+#+END_EXAMPLE
+
+Step3: Following output will be generated
+#+BEGIN_EXAMPLE
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h1 id="test">Test!</h1>
+<p>This is a test of <em>pandoc</em>.</p>
+<ul>
+<li>list one</li>
+<li>list two</li>
+</ul>
+</body>
+</html>
+#+END_EXAMPLE
