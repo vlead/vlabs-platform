@@ -140,7 +140,11 @@ Step 12: Login to OpenedX Studio and import the =lab.tar= file.
 Pandoc is a Haskell library for converting from one markup format to
 another, and a command-line tool.
 ** Install Pandoc
-step 1: Install pandoc using the steps mentioned [[http://pandoc.org/installing.html][here]] 
+step 1: Install pandoc using the following command.
+#+BEGIN_EXAMPLE
+sudo apt-get install pandoc
+
+#+END_EXAMPLE
 ** Procedure to convert a file from html to md
 step 1:
 Create the following sample =test.html= file
