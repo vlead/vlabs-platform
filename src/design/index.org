@@ -133,7 +133,7 @@ cd ..
 tar -cvzf name-of-archive.tar.gz <lab-directory>=
 #+END_EXAMPLE
 
-Step 12: Login to OpenedX Studio and import the =lab.tar= file. 
+Step 12: Login to OpenedX Studio and import the =lab.tar.gz= file. 
  
 * Pandoc
 <<pandoc>> 
