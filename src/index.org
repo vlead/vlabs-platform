@@ -11,20 +11,15 @@
 
 * Application
 
-** [[./requirements/index.org][Requirements]]
+1. [[./requirements/index.org][Requirements]]
 
+2. [[./design/index.org][Design]]
 
-** [[./design/index.org][Design]]
+3. [[./data-model/index.org][Data Model]]
 
+4. [[./runtime/index.org][Runtime]]
 
-** [[./data-model/index.org][Data Model]]
-
-
-** [[./runtime/index.org][Runtime]]
-
-
-** [[./deployment/index.org][Deployment]]
-       
+5. [[./deployment/index.org][Deployment]]
 
 * Tangle                                       :boilerplate:
 #+BEGIN_SRC python :eval no :tangle __init__.py
