@@ -1,0 +1,11 @@
+#+TITLE: Sturcture Generator 
+#+AUTHOR: VLEAD
+#+DATE: [2016-11-30 Wed]
+#+SETUPFILE: ../org-templates/level-1.org                                           
+#+TAGS: boilerplate(b)                                                             
+#+EXCLUDE_TAGS: boilerplate                                                        
+#+OPTIONS: ^:nil
+
+1. [[./source-code-structure/index.org][Lab Structure generator]]
+
+2. [[./open-edx-structure/index.org][Open edX Structure generator]]
