@@ -7,3 +7,81 @@
 #+OPTIONS: ^:nil
 
 * Introduction
+This section creates directory sturcture for experiments by extratcing them
+from lab specification file(json objects), takes 2 inputs -
+1) path to json file containing lab specs
+2) path to folder that will hold the directory structure
+* imports
+  imports os and json 
+#+BEGIN_SRC python :tangle json-struct.py
+import sys, os, json, re
+#+END_SRC
+
+* Create folder
+  Checks for valid path and creates folder
+#+BEGIN_SRC python :tangle json-struct.py
+def safe_make_folder(path):
+           '''makes folder if not present'''
+           try:
+                  os.mkdir(path)
+           except Exception as error:
+                  print ('Error : ' + str(error))
+#+END_SRC
+
+* Extract Experiments
+  Extracts experiments from json object
+#+BEGIN_SRC python :tangle json-struct.py
+def experiments(data_dict):
+          '''returns experiments'''
+          try:
+                  exps = data_dict.get('experiments')
+          except:
+                     pass
+          return exps
+#+END_SRC
+
+* Naming the created folders
+All non-alphanumeric characters are dropped and spaces are replaced with hyphen
+#+BEGIN_SRC python :tangle json-struct.py
+def handleCasing(name):
+          name = name.lower()
+          newName = re.sub(r'[^a-z0-9A-Z\s+]', '', name)
+          finalName = re.sub('\s+', '-', newName)
+          return finalName
+
+#+END_SRC
+* Create files
+  Creates files corresponding to lab spec file
+#+BEGIN_SRC python :tangle json-struct.py
+def createFiles(exps, srcPath):
+          n = len(exps)
+          for i in range(0,n):
+                  expName = exps[i].get('name')
+                  fname = handleCasing(expName)
+                  tmpPath = srcPath + '/' + fname
+                  safe_make_folder(tmpPath)
+                  subsec = exps[i].get('subsections')
+                  m = len(subsec)
+                  for j in range(0,m):
+                          fileName = subsec[j].get('name')
+                          filePath = tmpPath + '/' + fileName.lower() + '.org'
+                          open(filePath, 'a').close()
+#+END_SRC
+
+* main
+Takes path to json file and path to directory in which src folder is to be created
+#+BEGIN_SRC python :tangle json-struct.py
+if __name__ == '__main__':
+          try:                  
+                 labSpecPath = sys.argv[1]
+                 dirStructPath = sys.argv[2]
+                 dirStructPath = dirStructPath +'/src'
+                 os.mkdir(dirStructPath)
+          except IndexError:
+                 raise IndexError
+          
+          with open(labSpecPath) as data_file:
+                  data = json.load(data_file)
+          exps = experiments(data)
+          createFiles(exps, dirStructPath)
+#+END_SRC
