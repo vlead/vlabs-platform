@@ -7,4 +7,27 @@
 #+OPTIONS: ^:nil
 
 * Introduction
+   This document demonstrates the creation of a skeletal structure for a lab in
+   the format expected by Open edX platform from a lab specification.
+
+* How to generate OpenedX structure? 
+- Step 1 :: Create a directory with the lab name (all letters in lower-case
+     with hyphens) which is to be ported on Open edX.  
+- Step 2 :: The =labspec.json= file need to created and place inside the lab
+     directory.  Please refer to the example [[https://github.com/vlead/lab-specifications/blob/master/IIIT-Hyderabad/artificial-neural-networks-labspec.json][labspec.json]] file
+- Step 3 :: Run the following command to generate the OpenedX Structure
+#+BEGIN_EXAMPLE
+git clone https://github.com/vlead/vlabs-platform.git
+cd vlabs-platform/
+make
+cd build/code/runtime/
+python automation.py <absolute-path-to-lab-directory> 
+#+END_EXAMPLE
+- Step 4 :: Compress the lab directory into a tar.gz file using command 
+#+BEGIN_EXAMPLE
+cd ..
+tar -cvzf name-of-archive.tar.gz <path-to-lab-directory>
+#+END_EXAMPLE
+- Step 5 :: Create a course in Open edX Studio and import the compressed tar.gz
+     lab directory to course that is created in Open edX studio.
 
