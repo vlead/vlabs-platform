@@ -98,7 +98,9 @@ def labStructureGenerator(labpath):
 
     course = open('course.xml', 'w')
     course_data = labspec['course']
-    course.write('<course url_name="%s" org="%s" course="%s"/>'%(course_data['id'], course_data['org'], course_data['id']))
+    course.write('<course url_name="%s" org="%s" course="%s"/>'\
+                     %(course_data['id'], course_data['org'], \
+                           course_data['id']))
 
     os.chdir('about')
 
@@ -115,33 +117,52 @@ def labStructureGenerator(labpath):
     experiments_list = labspec['experiments']
     experiments_metadata = """ """
     for experiment in experiments_list:
-        experiments_metadata = experiments_metadata + ('\n  <chapter url_name="%s"/>' % experiment['name'].replace(" ","_"))
+        experiments_metadata = experiments_metadata + \
+          ('\n  <chapter url_name="%s"/>' \
+               % experiment['name'].replace(" ","_"))
         os.chdir('../chapter')
-        experiment_file = open(experiment['name'].replace(" ", "_") + '.xml', 'w')
+        experiment_file = open(experiment['name'].replace(" ", "_") +\
+                                   '.xml', 'w')
 
         subsection_metadata = """ """
         for subsection in experiment['subsections']:
-            subsection_metadata = subsection_metadata + '\n  <sequential url_name="%s"/>' % (experiment['name'].replace(" ","_")+"_"+subsection['name'].replace(" ","_"))
+            subsection_metadata = subsection_metadata + \
+              '\n  <sequential url_name="%s"/>' \
+              % (experiment['name'].replace(" ","_")+"_"+\
+                     subsection['name'].replace(" ","_"))
             os.chdir('../sequential')
-            subsection_file = open(experiment['name'].replace(" ","_") + "_" + subsection['name'].replace(" ","_") + '.xml', 'w')
+            subsection_file = open(experiment['name'].replace(" ","_") +\
+                                       "_" + \
+                                       subsection['name'].replace(" ","_") + \
+                                       '.xml', 'w')
             subsection_vertical_data = """<sequential display_name="%s">
   <vertical url_name="%s"/>
-</sequential>""" % (subsection['name'], experiment['name'].replace(" ","_")+"_"+subsection['name'].replace(" ","_") + "_" + "Unit")
+</sequential>""" % (subsection['name'], experiment['name'].replace(" ","_")+\
+                        "_"+subsection['name'].replace(" ","_") + "_" + "Unit")
             subsection_file.write(subsection_vertical_data)
             subsection_file.close()
             os.chdir('../vertical')
-            unit_file = open(experiment['name'].replace(" ","_") + "_" + subsection['name'].replace(" ","_") + "_Unit.xml",'w')
+            unit_file = open(experiment['name'].replace(" ","_") + "_" + \
+                                 subsection['name'].replace(" ","_") +\
+                                 "_Unit.xml",'w')
             unit_file_data = """<vertical display_name="%s">
   <html url_name="%s"/>
-</vertical>""" % ("Unit", experiment['name'].replace(" ","_")+"_"+subsection['name'].replace(" ","_") + "_Unit_html")
+</vertical>""" % ("Unit", experiment['name'].replace(" ","_")+"_"+\
+                      subsection['name'].replace(" ","_") + "_Unit_html")
             unit_file.write(unit_file_data)
             unit_file.close()
             os.chdir('../html')
-            unit_file_xml = open(experiment['name'].replace(" ","_")+"_"+subsection['name'].replace(" ","_") +"_Unit_html.xml",'w')
-            unit_file_html = open(experiment['name'].replace(" ","_")+"_"+subsection['name'].replace(" ","_") +"_Unit_html.html",'w')
+            unit_file_xml = open(experiment['name'].replace(" ","_")+\
+                                     "_"+subsection['name'].replace(" ","_") +\
+                                     "_Unit_html.xml",'w')
+            unit_file_html = open(experiment['name'].replace(" ","_")+"_"+\
+                                      subsection['name'].replace(" ","_") +\
+                                      "_Unit_html.html",'w')
             unit_file_html.write("<h2>%s</h2>"%subsection['name'])
             unit_file_html.close()
-            unit_file_xml_data =  """<html file_name="%s"/>""" % (experiment['name'].replace(" ","_")+"_"+subsection['name'].replace(" ","_") + "_Unit_html")
+            unit_file_xml_data =  """<html file_name="%s"/>""" \
+              % (experiment['name'].replace(" ","_")+"_"+\
+                     subsection['name'].replace(" ","_") + "_Unit_html")
             unit_file_xml.write(unit_file_xml_data)
             unit_file_xml.close()
             os.chdir('../chapter')
@@ -170,7 +191,8 @@ def generateLab(labpath):
         directoryGenerator(labpath)
         labStructureGenerator(labpath)
     else:
-        print "Place a labspec.json file in the lab folder and give the absolute path of the lab folder"
+        print "Place a labspec.json file in the lab folder and"\
+          "give the absolute path of the lab folder"
 
 #+END_SRC
 ** Main 
