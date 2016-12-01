@@ -160,8 +160,10 @@ def labStructureGenerator(labpath):
                                       "_Unit_html.html",'w')
             unit_file_html.write("<h2>%s</h2>"%subsection['name'])
             unit_file_html.close()
-            unit_file_xml_data =  """<html file_name="%s"/>""" \
+            unit_file_xml_data =  """<html file_name="%s" filename="%s"/>""" \
               % (experiment['name'].replace(" ","_")+"_"+\
+                     subsection['name'].replace(" ","_") + "_Unit_html",
+                     experiment['name'].replace(" ","_")+"_"+\
                      subsection['name'].replace(" ","_") + "_Unit_html")
             unit_file_xml.write(unit_file_xml_data)
             unit_file_xml.close()
