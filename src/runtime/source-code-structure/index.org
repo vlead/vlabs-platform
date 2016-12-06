@@ -12,14 +12,16 @@ from lab specification file(json objects), takes 2 inputs -
 1) path to json file containing lab specs
 2) path to folder that will hold the directory structure(folder that will hold
    src folder)
-* imports
+   python json-struct.py [$HOME]/labspec.json [$HOME]/dirWithSrcFolder
+* Implementation
+** imports
   imports os, json, re and sys
 #+BEGIN_SRC python :tangle json-struct.py
 import sys, os, json, re
 #+END_SRC
 
-* Create folder
-  Checks for valid path and creates folder
+** Create folder
+   Checks for valid path and creates folder
 #+BEGIN_SRC python :tangle json-struct.py
 def safe_make_folder(path):
            try:
@@ -28,8 +30,8 @@ def safe_make_folder(path):
                   print ('Error : ' + str(error))
 #+END_SRC
 
-* Extract Experiments
-  Extracts experiments from json object
+** Extract Experiments
+  Extracts experiments from json object, takes python dictionary of json object as input
 #+BEGIN_SRC python :tangle json-struct.py
 def experiments(data_dict):
           try:
@@ -39,7 +41,7 @@ def experiments(data_dict):
           return exps
 #+END_SRC
 
-* Naming the created folders
+** Naming the created folders
 All non-alphanumeric characters are dropped and spaces are replaced with hyphen
 #+BEGIN_SRC python :tangle json-struct.py
 def editName(name):
@@ -50,7 +52,7 @@ def editName(name):
           return finalName
 
 #+END_SRC
-* Create files
+** Create files
   Creates files corresponding to lab spec file
 #+BEGIN_SRC python :tangle json-struct.py
 def createFiles(exps, srcPath):
@@ -69,7 +71,8 @@ def createFiles(exps, srcPath):
                           open(filePath, 'a').close()
 #+END_SRC
 
-* main
+* Execution
+** main
   Takes path to json file and path to directory in which src folder is to be created
 #+BEGIN_SRC python :tangle json-struct.py
 if __name__ == '__main__':
@@ -86,3 +89,5 @@ if __name__ == '__main__':
           exps = experiments(data)
           createFiles(exps, dirStructPath)
 #+END_SRC
+
+

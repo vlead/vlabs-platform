@@ -1,15 +1,31 @@
+
+* Introduction
+This code adds resource id's into content of html files, takes 2 inputs:
+1) Path to src folder that contains folders of labs with html files in them
+2) Path to labspec.json file for corresponding lab
+* Implementation
+** imports
+#+BEGIN_SRC python :tangle addIds.py
 from bs4 import BeautifulSoup
 from os import listdir
 from os.path import isfile, join, splitext
 import sys, json, re
+#+END_SRC
 
+** Handling Convention
+#+BEGIN_SRC python :tangle addIds.py
 def editName(name):
 	name = name.lower()
 	newName = re.sub(r'[^a-zA-Z0-9\s+-]', '', name)
 	newName = newName.strip()
 	finalName = re.sub('\s+', '-', newName)
 	return finalName
+#+END_SRC
 
+** Insert Ids
+Using BeautifulSoup a parse tree is obtained making it easy to search and
+insert into the tree
+#+BEGIN_SRC python :tangle addIds.py
 def addHooks(files, expPath, labName, expName):
 	for f in files:
 		fileName, ext = splitext(f)
@@ -18,14 +34,18 @@ def addHooks(files, expPath, labName, expName):
 			headList = ptree.find_all(re.compile("^h[0-9]$"))
 			for h in headList:
 				h['id'] = labName + '-' + expName + '-' + fileName
-				print h['id']
 			pList = ptree.find_all('p')
 			for p in pList:
 				p['id'] = labName + '-' + expName + '-' + fileName +'-content'	
 			new_html_content = ptree.prettify()
-			k = open('/home/akshay1123/Desktop/VLABS/newhtml.html', 'w')
+			k = open(join(expPath,f), 'w+')
 			k.write(new_html_content)
 			k.close()
+
+#+END_SRC
+
+* Execution
+#+BEGIN_SRC python :tangle addIds.py
 if __name__ == '__main__':
 	try:
 		dirPath = sys.argv[1]
@@ -44,5 +64,4 @@ if __name__ == '__main__':
 		expName = editName(expName)
 		onlyfiles = [f for f in listdir(expPath) if isfile(join(expPath, f))]
 		addHooks(onlyfiles, expPath, labName, expName)
-		
-	
+#+END_SRC
