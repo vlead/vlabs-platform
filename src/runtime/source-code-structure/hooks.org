@@ -8,30 +8,45 @@
 #+OPTIONS: ^:nil
 
 * Introduction
-  This Document represents how to  add resource id's into content of html
-  files. 
-* How to run
-This file accepts 2 inputs:
-1) Path to src folder that contains folders of labs with html files in them
-2) Path to labspec.json file for corresponding lab
-<<<<<<< HEAD
-* How to run
-=======
->>>>>>> 679fb102c3c00f22ff9fc68cf6393cc21781e17b
+  This code takes input as
+1) path to lab directory 
+2) path to labSpec.json file of corresponding lab
+Lab directory should have following structure
 #+BEGIN_EXAMPLE
-python add-ids.py $[HOME]/src $[HOME]/labSpec.json
+|--LabDirectory
+   |--src
+      |--exp1
+      |  |--introduction.html
+      |  |--objective.html
+      |  |--quiz.html
+      |  |--theory.html
+      |  `--simulation.html
+      |--exp2
+      |  |--introduction.html
+      |  |--objective.html
+      |  |--quiz.html
+         `--theory.html
+
 #+END_EXAMPLE
+This code sends request for id's of lab whose labId is fetched from
+labSpec.json and hooks these id's into corresponding html files.
+* How to run
+following command will run the code
+#+BEGIN_EXAMPLE
+python add-ids.py $[HOME]/labDirectory $[HOME]/labSpec.json
+#+END_EXAMPLE
+
 * Implementation
 ** imports
   :PROPERTIES:
   :CUSTOM_ID: imports
   :END:   
-
+Uses BeautifulSoup to parse html file
 #+BEGIN_SRC python :tangle add-ids.py
 from bs4 import BeautifulSoup
 from os import listdir
 from os.path import isfile, join, splitext
-import sys, json, re
+import sys, json, re, requests
 from config.config import URL
 
 #+END_SRC
@@ -59,55 +74,62 @@ def editName(name):
   :CUSTOM_ID: addHooks
   :END:   
 
-<<<<<<< HEAD
-#+BEGIN_SRC python :tangle addIds.py
-def addHooks(jsonIds, labDirPath):#files, expPath, labName, expName):
-	expList = listdir(join(labDirPath, 'src'))
-        for d in expList:
-                jsonExpList = jsonIds.get('experiments').get('name')
-                
-                if d == expName:
-                       ids = jsonIds.get('experiments').get('')
-        for f in files:
-=======
 #+BEGIN_SRC python :tangle add-ids.py
-def addHooks(files, expPath, labName, expName):
-	for f in files:
->>>>>>> 679fb102c3c00f22ff9fc68cf6393cc21781e17b
-		fileName, ext = splitext(f)
-		if ext == '.html':
-			ptree = BeautifulSoup(open(join(labDirPath, join('src',f))))
-                        
-			headList = ptree.find_all(re.compile("^h[0-9]$"))
-			for h in headList:
-				h['id'] = labName + '-' + expName + '-' + fileName
-			pList = ptree.find_all('p')
-			for p in pList:
-				p['id'] = labName + '-' + expName + '-' + fileName +'-content'	
-			new_html_content = ptree.prettify()
-			k = open(join(expPath,f), 'w+')
-			k.write(new_html_content)
-			k.close()
+def addHooks(jsonIds, labDirPath):#files, expPath, labName, expName):
+        expNameList = listdir(join(labDirPath,'src'))
+        for e in expNameList:
+                for d in jsonIds.get('experiments'):
+                      if e == editName(d.get('name')):
+                              idList = d.get('subsections')
+                              for i in idList:
+                                  try:
+                                      keys = i.keys()
+                                      values = i.values()
+                                  except:
+                                      raise Exception('Corrupt json object retrival')
+                                  fileName = editName(keys[0])+'.html'
+                                  ptree = BeautifulSoup(open(join(labDirPath, join('src', join(e, fileName)))))
+                                  headList = ptree.find_all(re.compile("^h[0-9]$"))
+                                  for h in headList:
+                                        h['id'] = values[0]
+                                  pList = ptree.find_all('p')
+                                  for p in pList:
+                                        p['id'] = values[0]+'-content'
+                                  new_html_content = ptree.prettify()
+                                  fp = open(join(labDirPath, join('src', join(e, fileName))), 'w+')
+                                  fp.write(new_html_content)
+                                  fp.close()
 
 #+END_SRC
 ** Config
+This section is for testing purpose on local machine, remove this section once
+Lab Data Services are deployed.
+config/config.py should have URL variable to be set to server address that
+servers resource-ids
 #+BEGIN_SRC python :tangle config/config.py
 URL = 'http://127.0.0.1:5000/'
 
 #+END_SRC
 
+#+BEGIN_SRC python :tangle config/__init__.py
+
+#+END_SRC
+
 ** Send Request
-#+BEGIN_SRC python :tangle addIds.py
+fetches the resource-ids in json object form
+#+BEGIN_SRC python :tangle add-ids.py
 def sendRequest(url):
         try:
-            json = requests.get(url)
+            jstr = requests.get(url)
         except Exception as error:
             print ('Error: '+str(error))
-        return json
+        j = json.loads(jstr.content)
+        return j
         
 
 #+END_SRC
 * Execution
+sending request to server by concatinating labId to server address
 #+BEGIN_SRC python :tangle add-ids.py
 if __name__ == '__main__':
 	try:
@@ -117,19 +139,9 @@ if __name__ == '__main__':
 		print('Error: '+str(error))
         with open(jsonPath) as data_file:
 		data = json.load(data_file)
-	#exps = data.get('experiments')
      	labId = data.get('course').get('id')
-#        labFolderName = editName(data.get('course').get('display_name'))
-        #labName = editName(labName)
         newURL = URL + labId
-        print newURL
         jsonIds = sendRequest(newURL)
         addHooks(jsonIds, labDirPath)
-#	for i in exps:
-#		expName = i.get('name')
-#		expName = editName(expName)
-#		expPath = join(dirPath, expName)
-#		onlyfiles = [f for f in listdir(expPath) if isfile(join(expPath, f))]
-#		addHooks(onlyfiles, expPath, labName, expName)
 
 #+END_SRC
