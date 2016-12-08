@@ -1,4 +1,4 @@
-#+TITLE:                                                         
+#+TITLE: Hooks                                                         
 #+AUTHOR: VLEAD                                                                   
 #+DATE: <2016-12-06 Tue>
                                             
@@ -8,13 +8,14 @@
 #+OPTIONS: ^:nil
 
 * Introduction
-This code adds resource id's into content of html files, takes 2 inputs:
+  This Document represents how to  add resource id's into content of html
+  files. 
+* How to run
+This file accepts 2 inputs:
 1) Path to src folder that contains folders of labs with html files in them
 2) Path to labspec.json file for corresponding lab
-* How to run
-
 #+BEGIN_EXAMPLE
-python $[HOME]/src $[HOME]/labSpec.json
+python add-ids.py $[HOME]/src $[HOME]/labSpec.json
 #+END_EXAMPLE
 * Implementation
 ** imports
@@ -22,7 +23,7 @@ python $[HOME]/src $[HOME]/labSpec.json
   :CUSTOM_ID: imports
   :END:   
 
-#+BEGIN_SRC python :tangle addIds.py
+#+BEGIN_SRC python :tangle add-ids.py
 from bs4 import BeautifulSoup
 from os import listdir
 from os.path import isfile, join, splitext
@@ -30,12 +31,12 @@ import sys, json, re
 #+END_SRC
 
 ** Handling Convention
-All non-alphanumeric characters are dropped and spaces are replaced with hyphen
+   All non-alphanumeric characters are dropped and spaces are replaced with hyphen
   :PROPERTIES:
   :CUSTOM_ID: editName
   :END:   
 
-#+BEGIN_SRC python :tangle addIds.py
+#+BEGIN_SRC python :tangle add-ids.py
 def editName(name):
 	name = name.lower()
 	newName = re.sub(r'[^a-zA-Z0-9\s+-]', '', name)
@@ -45,13 +46,13 @@ def editName(name):
 #+END_SRC
 
 ** Insert Ids
-Using BeautifulSoup a parse tree is obtained making it easy to search and
-insert into the tree
+   Using BeautifulSoup, a parse tree is obtained making it easy to search and
+   insert into the tree
   :PROPERTIES:
   :CUSTOM_ID: addHooks
   :END:   
 
-#+BEGIN_SRC python :tangle addIds.py
+#+BEGIN_SRC python :tangle add-ids.py
 def addHooks(files, expPath, labName, expName):
 	for f in files:
 		fileName, ext = splitext(f)
@@ -71,7 +72,7 @@ def addHooks(files, expPath, labName, expName):
 #+END_SRC
 
 * Execution
-#+BEGIN_SRC python :tangle addIds.py
+#+BEGIN_SRC python :tangle add-ids.py
 if __name__ == '__main__':
 	try:
 		dirPath = sys.argv[1]

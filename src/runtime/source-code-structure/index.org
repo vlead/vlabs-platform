@@ -7,15 +7,19 @@
 #+OPTIONS: ^:nil
 
 * Introduction
-This section creates directory sturcture for experiments by extratcing them
-from lab specification file(json objects), takes 2 inputs -
-1) path to json file containing lab specs
-2) path to folder that will hold the directory structure(folder that will hold
-   src folder)
+  This document describes how to create the directory structure for a lab by
+  extracting the data from lab specification file(json objects). 
+* How to run
+  This file accepts 2 inputs:
+  1) path to json file containing lab specification
+  2) path to folder that will hold the directory structure
+#+BEGIN_EXAMPLE
    python json-struct.py [$HOME]/labspec.json [$HOME]/dirWithSrcFolder
+#+END_EXAMPLE
+
 * Implementation
 ** imports
-  imports os, json, re and sys
+   imports os, json, re and sys
 #+BEGIN_SRC python :tangle json-struct.py
 import sys, os, json, re
 #+END_SRC
@@ -31,7 +35,7 @@ def safe_make_folder(path):
 #+END_SRC
 
 ** Extract Experiments
-  Extracts experiments from json object, takes python dictionary of json object as input
+   Extracts experiments from json object, takes python dictionary of json object as input
 #+BEGIN_SRC python :tangle json-struct.py
 def experiments(data_dict):
           try:
@@ -42,7 +46,7 @@ def experiments(data_dict):
 #+END_SRC
 
 ** Naming the created folders
-All non-alphanumeric characters are dropped and spaces are replaced with hyphen
+   All non-alphanumeric characters are dropped and spaces are replaced with hyphen
 #+BEGIN_SRC python :tangle json-struct.py
 def editName(name):
           name = name.lower()
@@ -53,7 +57,7 @@ def editName(name):
 
 #+END_SRC
 ** Create files
-  Creates files corresponding to lab spec file
+   Creates files corresponding to lab spec file
 #+BEGIN_SRC python :tangle json-struct.py
 def createFiles(exps, srcPath):
           n = len(exps)
@@ -73,7 +77,7 @@ def createFiles(exps, srcPath):
 
 * Execution
 ** main
-  Takes path to json file and path to directory in which src folder is to be created
+   Takes path to json file and path to directory in which src folder is to be created
 #+BEGIN_SRC python :tangle json-struct.py
 if __name__ == '__main__':
           try:                  
