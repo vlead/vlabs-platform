@@ -116,7 +116,35 @@ URL = 'http://127.0.0.1:5000/'
 #+END_SRC
 
 ** Send Request
-fetches the resource-ids in json object form
+fetches the resource-ids in json object form of following form
+#+BEGIN_EXAMPLE
+dictonary = {"experiments": [{"id": "Intro", "name": "Introduction",
+                         "subsections": [{"Introduction": "id1"}
+                                         ]},
+                         {"id": "E99709", "name": "Word Analysis",
+                         "subsections": [{"Introduction": "id1"},
+                                         {"Theory": "id2"},
+                                         {"Objective": "id3"},
+                                         {"Experiment": "id4"},
+                                         {"Quizzes": "id5"},
+                                         {"Procedure": "id6"},
+                                         {"Further Readings": "id7"},
+                                         {"Feedback": "id8"}
+                                         ]},
+                          {"id": "E99708", "name": "Word Generation",
+                         "subsections": [{"Introduction": "id1"},
+                                         {"Theory": "id2"},
+                                         {"Objective": "id3"},
+                                         {"Experiment": "id4"},
+                                         {"Quizzes": "id5"},
+                                         {"Procedure": "id6"},
+                                         {"Further Readings": "id7"},
+                                         {"Feedback": "id8"}
+                                         ]}]
+}
+
+#+END_EXAMPLE
+
 #+BEGIN_SRC python :tangle add-ids.py
 def sendRequest(url):
         try:
