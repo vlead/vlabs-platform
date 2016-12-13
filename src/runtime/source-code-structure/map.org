@@ -1,0 +1,93 @@
+#+TITLE: Map                                                         
+#+AUTHOR: VLEAD                                                                   
+#+DATE: <2016-12-13 Tue>
+                                            
+#+Setupfile: ./org-templates/level-0.org                                   
+#+TAGS: boilerplate(b)                                                            
+#+EXCLUDE_TAGS: boilerplate                                                       
+#+OPTIONS: ^:nil
+
+* Introduction
+Creating a map of resource-ids to resource filename, 
+This code takes 2 inputs
+1) Experiment Id
+2) Experiment directory path
+Also prepends resource filename with resource Id.
+
+* Implementation
+** import
+
+#+BEGIN_SRC python :tangle map.py
+from config.config import URL
+from config.config2 import appendMap
+import requests, sys, json, re
+from os.path import join, splitext
+from os import rename, chdir, listdir
+#+END_SRC
+** Send Request
+   Sends request to server and fetches proper json object
+#+BEGIN_SRC python :tangle map.py
+def sendRequest(url):
+        try:
+            jstr = requests.get(url)
+        except Exception as error:
+            print ('Error: '+str(error))
+        j = json.loads(jstr.content)
+        return j
+
+#+END_SRC
+** Edit Name
+#+BEGIN_SRC python :tangle map.py
+def editName(name):
+	name = name.lower()
+	newName = re.sub(r'[^a-zA-Z0-9\s+-]', '', name)
+	newName = newName.strip()
+	finalName = re.sub('\s+', '-', newName)
+	return finalName
+
+#+END_SRC
+** Creating Map
+Creates a dictionary with resource Ids as key and corresponding resource
+filname as value
+#+BEGIN_SRC python :tangle map.py
+def createMap(jsResIds, expDirPath):
+        map = {}      
+        chdir(expDirPath)
+        listResId = jsResIds.get('subsections')
+        files = listdir(expDirPath)
+        for res in listResId:
+              for f in files:
+                  try:
+                      name = res.keys()[0]
+                      resId = res.values()[0]
+                  except Exception as error:
+                      print ('Error: '+str(error))
+                  properName = editName(name)
+                  fileName, ext = splitext(f)
+                  if fileName == properName:
+                       map[resId] = resId +'-'+ f
+                       newFileName = resId +'-'+ f
+                       rename(f, newFileName)
+        return map
+#+END_SRC
+#* Config
+#+BEGIN_SRC python :tangle config/config2.py
+map = {}
+def appendMap(partialMap):
+    map.update(partialMap)
+    #print map
+#+END_SRC
+* Execution
+#+BEGIN_SRC python :tangle map.py
+
+if __name__ == "__main__":
+        try:
+           expId = sys.argv[1]
+           expDirPath = sys.argv[2]
+        except Exception as error:
+		print('Error: '+str(error))
+        newURL = URL + expId
+        resIds = sendRequest(newURL)
+        map = createMap(resIds, expDirPath)
+                
+#+END_SRC

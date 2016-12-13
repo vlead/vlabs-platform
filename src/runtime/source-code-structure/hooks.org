@@ -25,7 +25,8 @@ Lab directory should have following structure
       |  |--introduction.html
       |  |--objective.html
       |  |--quiz.html
-         `--theory.html
+      |   `--theory.html
+      |--index.html
 
 #+END_EXAMPLE
 This code sends request for id's of lab whose labId is fetched from
@@ -34,6 +35,7 @@ labSpec.json and hooks these id's into corresponding html files.
 following command will run the code
 #+BEGIN_EXAMPLE
 python add-ids.py $[HOME]/labDirectory $[HOME]/labSpec.json
+
 #+END_EXAMPLE
 
 * Implementation
