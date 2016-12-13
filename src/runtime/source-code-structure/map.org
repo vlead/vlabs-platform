@@ -70,13 +70,6 @@ def createMap(jsResIds, expDirPath):
                        rename(f, newFileName)
         return map
 #+END_SRC
-#* Config
-#+BEGIN_SRC python :tangle config/config2.py
-map = {}
-def appendMap(partialMap):
-    map.update(partialMap)
-    #print map
-#+END_SRC
 * Execution
 #+BEGIN_SRC python :tangle map.py
 
