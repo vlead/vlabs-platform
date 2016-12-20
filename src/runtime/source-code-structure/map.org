@@ -8,7 +8,7 @@
 #+OPTIONS: ^:nil
 
 * Introduction
-Creating a map of resource-ids to resource filename, and sends resource file
+  Creating a map of resource-ids to resource filename, and sends resource file
 along with resource-id to server where map is created dynamically
 This code takes 2 inputs
 1) Experiment Id
@@ -64,7 +64,11 @@ def editName(name):
 #+END_SRC
 ** Creating Map
 Locates resource-id and its corresponding resource-file, sends html file to
-server along with its resource-id where a map is created dynamically
+server along with its resource-id where a map is created dynamically. 
+Resource names are renamed to following format.
+#+BEGIN_EXAMPLE
+<res-id>-<subsection-name>.html
+#+END_EXAMPLE
 
 #+BEGIN_SRC python :tangle map.py
 def createMap(jsResIds, expDirPath):
@@ -86,7 +90,7 @@ def createMap(jsResIds, expDirPath):
                        newFileName = resId +'-'+ f
                        rename(f, newFileName)
                        newUrl = URL + 'upload'
-                       filePath = expDirPath+'/'+newFileName
+                       filePath = join(expDirPath, newFileName)
                        response = requests.post(newUrl, files={'file':(newFileName, open(filePath, 'rb'))}, data={resId:newFileName})
         return map
 #+END_SRC

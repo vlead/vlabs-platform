@@ -16,8 +16,9 @@
 * Implementation
 ** imports
 #+BEGIN_SRC python :tangle fetch-content.py
-import sys, requests, json, os
+import sys, requests, json, os, re
 from config.config import URL
+from bs4 import BeautifulSoup
 #+END_SRC
 
 ** Send Request
@@ -33,11 +34,22 @@ def sendRequest(url):
 
 #+END_SRC
 
+** Edit Name
+   Edits string to maintain consistency.
+#+BEGIN_SRC python :tangle fetch-content.py
+def editName(name):
+	name = name.lower()
+	newName = re.sub(r'[^a-zA-Z0-9\s+-]', '', name)
+	newName = newName.strip()
+	finalName = re.sub('\s+', '-', newName)
+	return finalName
+
+#+END_SRC 
 ** Edit Html File
    This function edits html file, adds ajax call and proper html tags to hold
    the retrieved data
    Server-side script must have '/req/<Id>' route which will serve absolute
-   path of res-Id.
+   path of res-Id.  
    HTML content being written has javascript part that makes ajax call
    currently to http://localhost , this should point to content server which
    will respond with absolute path resource location for requested resource-id 
@@ -47,11 +59,15 @@ def editHtmlFile(fileName, htmlDirPath, resId, subSecName):
         contentFileName = editName(fileName)
 	sname = editName(subSecName)
 	finalFileName = resId+'-'+sname+'.html'
-	fp = open(filePath, 'w+')
+	try:
+            fp = open(filePath, 'w+')
+        except Exception as error:
+            print ('Error: '+str(error))
 	newUrl = URL + 'req/' + resId
 	r = requests.get(newUrl)
 	absPath = r.content
-	html_boiler_plate = """<!DOCTYPE html>
+	html_boiler_plate = """
+        <!DOCTYPE html>
         <html>
         <script>
         function loadDoc() {
@@ -71,6 +87,8 @@ def editHtmlFile(fileName, htmlDirPath, resId, subSecName):
         </object>
         </body>
         </html>""" % (URL, resId ,finalFileName)
+        sp = BeautifulSoup(html_boiler_plate)
+        html_boiler_plate = sp.prettify()
 	fp.write(html_boiler_plate)
 	fp.close()
 
@@ -121,10 +139,13 @@ def alignFileToId(labspec, htmlDirPath):
 
 #+BEGIN_SRC python :tangle fetch-content.py
 if __name__ == '__main__':
-	labId = sys.argv[1]
-	htmlDirPath = sys.argv[2]
-	newURL = URL + labId
-	detailedLabSpec = sendRequest(newURL)
-	filemap = alignFileToId(detailedLabSpec, htmlDirPath)
+        if len(sys.argv) == 3:
+	     labId = sys.argv[1]
+	     htmlDirPath = sys.argv[2]
+	     newURL = URL + labId
+	     detailedLabSpec = sendRequest(newURL)
+	     filemap = alignFileToId(detailedLabSpec, htmlDirPath)
+        else:
+             print "Usage: python <fetch-content.py> <lab-Id> <DirPath to all empty HTML files>"
 
 #+END_SRC

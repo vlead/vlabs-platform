@@ -7,8 +7,8 @@
 #+OPTIONS: ^:nil
 
 * Introduction
-  This document describes how to create the directory structure for a lab by
-  extracting the data from lab specification file(json objects). 
+  This document creates the directory structure for a lab that is consistent
+  with corresponding labspec.json 
 * How to run
   This file accepts 2 inputs:
   1) path to json file containing lab specification
@@ -72,7 +72,10 @@ def createFiles(exps, srcPath):
                           fileName = subsec[j].get('name')
                           fileName = editName(fileName)
                           filePath = tmpPath + '/' + fileName + '.org'
-                          open(filePath, 'a').close()
+                          try:
+                             open(filePath, 'a').close()
+                          except Exception as error:
+                             print ('Error: '+str(error))
 #+END_SRC
 
 * Execution
