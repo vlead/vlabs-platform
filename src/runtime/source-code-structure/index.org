@@ -1,4 +1,4 @@
-#+TITLE: Source Code Structure generator
+#+TITLE: Source Code Structure generator+
 #+AUTHOR: VLEAD
 #+DATE:  [2016-11-30 Wed]
 #+SETUPFILE: ../../org-templates/level-2.org
@@ -7,8 +7,10 @@
 #+OPTIONS: ^:nil
 
 * Introduction
-  This document creates the directory structure for a lab that is consistent
-  with corresponding labspec.json 
+  This document illustrates the mechanism to create the directory structure for
+  a lab that is consistent with corresponding labspec.json. 
+
+
 * How to run
   This file accepts 2 inputs:
   1) path to json file containing lab specification
@@ -17,84 +19,132 @@
    python json-struct.py [$HOME]/labspec.json [$HOME]/dirWithSrcFolder
 #+END_EXAMPLE
 
-* Implementation
-** imports
-   imports os, json, re and sys
-#+BEGIN_SRC python :tangle json-struct.py
-import sys, os, json, re
+
+* Creation of the structure for either a lab or an experiment. 
+  The structure of the lab is encoded in the specification file.  The format of
+  the specification is in =json= format.  
+  #+BEGIN_EXAMPLE
+  
+  #+END_EXAMPLE
+
+  The structure is read from the specification file and the corresponding
+  folder structure is created.   A lab consists of multiple experiments and
+  therefore multiple experiment folders are created.  Each experiment folder
+  contains empty files corresponding to each subsection within an experiment. 
+
+#+NAME: main_process
+#+BEGIN_SRC python
+if __name__ == '__main__':
+    try:                  
+        labSpecPath = sys.argv[1]
+        dirStructPath = sys.argv[2]
+        dirStructPath = dirStructPath +'/src'
+        os.mkdir(dirStructPath)
+    except Exception as error:
+        if error == OSError:
+            pass
+        with open(labSpecPath) as data_file:
+            data = json.load(data_file)
+            exps = getListOfExperiments(data)
+            createFiles(exps, dirStructPath)
+
 #+END_SRC
+
+
+* Implementation
+
+** Extract Experiments
+   Extracts experiments from json object, takes python dictionary of json
+   object as input
+#+NAME: extract_experiments
+#+BEGIN_SRC python
+def getListOfExperiments(data_dict):
+    try:
+        exps = data_dict.get('experiments')
+    except Exception as error:
+        print('Error: '+str(error))
+        return exps
+
+#+END_SRC
+
 
 ** Create folder
    Checks for valid path and creates folder
-#+BEGIN_SRC python :tangle json-struct.py
+#+NAME: create_folder
+#+BEGIN_SRC python
 def safe_make_folder(path):
-           try:
-                  os.mkdir(path)
-           except Exception as error:
-                  print ('Error : ' + str(error))
+    try:
+        os.mkdir(path)
+    except Exception as error:
+        print ('Error : ' + str(error))
+
 #+END_SRC
 
-** Extract Experiments
-   Extracts experiments from json object, takes python dictionary of json object as input
-#+BEGIN_SRC python :tangle json-struct.py
-def experiments(data_dict):
-          try:
-                  exps = data_dict.get('experiments')
-          except Exception as error:
-                     print('Error: '+str(error))
-          return exps
-#+END_SRC
 
 ** Naming the created folders
-   All non-alphanumeric characters are dropped and spaces are replaced with hyphen
-#+BEGIN_SRC python :tangle json-struct.py
+   All non-alphanumeric characters are dropped and spaces are replaced with
+   hyphen
+#+NAME: sanitize_name
+#+BEGIN_SRC python 
 def editName(name):
-          name = name.lower()
-          newName = re.sub(r'[^a-z0-9A-Z\s+-]', '', name)
-          newName = newName.strip()
-          finalName = re.sub('\s+', '-', newName)
-          return finalName
+    name = name.lower()
+    newName = re.sub(r'[^a-z0-9A-Z\s+-]', '', name)
+    newName = newName.strip()
+    finalName = re.sub('\s+', '-', newName)
+    return finalName
 
 #+END_SRC
+
+
 ** Create files
    Creates files corresponding to lab spec file
-#+BEGIN_SRC python :tangle json-struct.py
+#+NAME: create_files
+#+BEGIN_SRC python
 def createFiles(exps, srcPath):
-          n = len(exps)
-          for i in range(0,n):
-                  expName = exps[i].get('name')
-                  fname = editName(expName)
-                  tmpPath = srcPath + '/' + fname
-                  safe_make_folder(tmpPath)
-                  subsec = exps[i].get('subsections')
-                  m = len(subsec)
-                  for j in range(0,m):
-                          fileName = subsec[j].get('name')
-                          fileName = editName(fileName)
-                          filePath = tmpPath + '/' + fileName + '.org'
-                          try:
-                             open(filePath, 'a').close()
-                          except Exception as error:
-                             print ('Error: '+str(error))
+    n = len(exps)
+    for i in range(0,n):
+        expName = exps[i].get('name')
+        fname = editName(expName)
+        tmpPath = srcPath + '/' + fname
+        safe_make_folder(tmpPath)
+        subsec = exps[i].get('subsections')
+        m = len(subsec)
+        for j in range(0,m):
+            fileName = subsec[j].get('name')
+            fileName = editName(fileName)
+            filePath = tmpPath + '/' + fileName + '.org'
+            try:
+                open(filePath, 'a').close()
+            except Exception as error:
+                print ('Error: '+str(error))
+
 #+END_SRC
 
-* Execution
-** main
-   Takes path to json file and path to directory in which src folder is to be created
-#+BEGIN_SRC python :tangle json-struct.py
-if __name__ == '__main__':
-          try:                  
-                 labSpecPath = sys.argv[1]
-                 dirStructPath = sys.argv[2]
-                 dirStructPath = dirStructPath +'/src'
-                 os.mkdir(dirStructPath)
-          except Exception as error:
-                 if error == OSError:
-                       pass
-          with open(labSpecPath) as data_file:
-                  data = json.load(data_file)
-          exps = experiments(data)
-          createFiles(exps, dirStructPath)
-#+END_SRC
+
+* Infra                                                         :boilerplate:
+
+** sources
+*** Imports 
+#+name: imports_for_sources
+#+BEGIN_SRC python
+# -*- coding: utf-8 -*-
+import sys, os, json, re
+
+#+end_src
+
+
+
+* Tangling                                                      :boilerplate:
+
+** sources
+#+BEGIN_SRC python :tangle json_struct.py :eval no :noweb yes
+<<imports_for_sources>>
+<<extract_experiments>>
+<<create_folder>>
+<<sanitize_name>>
+<<create_files>>
+<<main_process>>
+#+end_src
+
 
 
