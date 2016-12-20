@@ -37,7 +37,10 @@ def sendRequest(url):
    This function edits html file, adds ajax call and proper html tags to hold
    the retrieved data
    Server-side script must have '/req/<Id>' route which will serve absolute
-   path of res-Id
+   path of res-Id.
+   HTML content being written has javascript part that makes ajax call
+   currently to http://localhost , this should point to content server which
+   will respond with absolute path resource location for requested resource-id 
 #+BEGIN_SRC python :tangle fetch-content.py
 def editHtmlFile(fileName, htmlDirPath, resId, subSecName):
 	filePath = os.path.join(htmlDirPath,fileName)
@@ -50,7 +53,6 @@ def editHtmlFile(fileName, htmlDirPath, resId, subSecName):
 	absPath = r.content
 	html_boiler_plate = """<!DOCTYPE html>
         <html>
-        <body>
         <script>
         function loadDoc() {
         var xhttp = new XMLHttpRequest();
@@ -65,7 +67,7 @@ def editHtmlFile(fileName, htmlDirPath, resId, subSecName):
         }
         </script>
         <body onload="loadDoc()">
-        <object width="400" height="400" data="localhost/%s">
+        <object width="4000" height="4000" data="http://localhost/%s">
         </object>
         </body>
         </html>""" % (URL, resId ,finalFileName)
