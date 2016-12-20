@@ -31,6 +31,8 @@ Lab directory should have following structure
 #+END_EXAMPLE
 This code sends request for id's of lab whose labId is fetched from
 labSpec.json and hooks these id's into corresponding html files.
+
+
 * How to run
 following command will run the code
 #+BEGIN_EXAMPLE
@@ -38,28 +40,16 @@ python add-ids.py $[HOME]/labDirectory $[HOME]/labSpec.json
 
 #+END_EXAMPLE
 
-* Implementation
-** imports
-  :PROPERTIES:
-  :CUSTOM_ID: imports
-  :END:   
-Uses BeautifulSoup to parse html file
-#+BEGIN_SRC python :tangle add-ids.py
-from bs4 import BeautifulSoup
-from os import listdir
-from os.path import isfile, join, splitext
-import sys, json, re, requests
-from config.config import URL
 
-#+END_SRC
+* Implementation
 
 ** Handling Convention
    All non-alphanumeric characters are dropped and spaces are replaced with hyphen
   :PROPERTIES:
   :CUSTOM_ID: editName
   :END:   
-
-#+BEGIN_SRC python :tangle add-ids.py
+#+NAME: edit_name
+#+BEGIN_SRC python 
 def editName(name):
 	name = name.lower()
 	newName = re.sub(r'[^a-zA-Z0-9\s+-]', '', name)
@@ -69,13 +59,14 @@ def editName(name):
 
 #+END_SRC
 
+
 ** Insert Ids
    Using BeautifulSoup, a parse tree is obtained making it easy to search and
    insert into the tree
   :PROPERTIES:
   :CUSTOM_ID: addHooks
   :END:   
-
+#+NAME: add_hooks
 #+BEGIN_SRC python :tangle add-ids.py
 def addHooks(jsonIds, labDirPath):#files, expPath, labName, expName):
         expNameList = listdir(join(labDirPath,'src'))
@@ -103,6 +94,8 @@ def addHooks(jsonIds, labDirPath):#files, expPath, labName, expName):
                                   fp.close()
 
 #+END_SRC
+
+
 ** Config
 This section is for testing purpose on local machine, remove this section once
 Lab Data Services are deployed.
@@ -116,6 +109,7 @@ URL = 'http://127.0.0.1:5000/'
 #+BEGIN_SRC python :tangle config/__init__.py
 
 #+END_SRC
+
 
 ** Send Request
 fetches the resource-ids in json object form of following form
@@ -146,8 +140,8 @@ dictonary = {"experiments": [{"id": "Intro", "name": "Introduction",
 }
 
 #+END_EXAMPLE
-
-#+BEGIN_SRC python :tangle add-ids.py
+#+NAME: send_request
+#+BEGIN_SRC python 
 def sendRequest(url):
         try:
             jstr = requests.get(url)
@@ -158,9 +152,12 @@ def sendRequest(url):
         
 
 #+END_SRC
+
+
 * Execution
 sending request to server by concatinating labId to server address
-#+BEGIN_SRC python :tangle add-ids.py
+#+NAME: main_process
+#+BEGIN_SRC python
 if __name__ == '__main__':
 	try:
 		labDirPath = sys.argv[1]
@@ -175,3 +172,34 @@ if __name__ == '__main__':
         addHooks(jsonIds, labDirPath)
 
 #+END_SRC
+
+
+* Infra                                                         :boilerplate:
+
+** sources
+*** Imports 
+#+name: imports_for_sources
+#+BEGIN_SRC python
+# -*- coding: utf-8 -*-
+from bs4 import BeautifulSoup
+from os import listdir
+from os.path import isfile, join, splitext
+import sys, json, re, requests
+from config.config import URL
+
+#+end_src
+
+
+* Tangling                                                      :boilerplate:
+
+** sources
+#+BEGIN_SRC python :tangle hooks.py :eval no :noweb yes
+<<imports_for_sources>>
+<<edit_name>>
+<<create_folder>>
+<<send_request>>
+<<add_hooks>>
+<<main_process>>
+#+end_src
+
+

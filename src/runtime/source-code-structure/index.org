@@ -24,7 +24,24 @@
   The structure of the lab is encoded in the specification file.  The format of
   the specification is in =json= format.  
   #+BEGIN_EXAMPLE
-  
+  {
+        "course": {"org": "iiith","id": "cse24", "display_name": "Natural Language Processing"},
+        "overview": "Natural Language Processing Lab",
+        "experiments": [{"id": "Intro", "name": "Introduction",
+                         "subsections": [{"name": "Introduction"}
+                                         ]},
+                         {"id": "E99709", "name": "Word Analysis",
+                         "subsections": [{"name": "Introduction"},
+                                         {"name": "Theory"},
+                                         {"name": "Objective"},
+                                         {"name": "Experiment"},
+                                         {"name": "Quizzes"},
+                                         {"name": "Procedure"},
+                                         {"name": "Further Readings"},
+                                         {"name": "Feedback"}
+                                         ]},]}
+ 
+
   #+END_EXAMPLE
 
   The structure is read from the specification file and the corresponding
