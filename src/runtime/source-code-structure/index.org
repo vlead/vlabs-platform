@@ -10,7 +10,7 @@
   This document illustrates the mechanism to create the directory structure for
   a lab that is consistent with corresponding labspec.json. 
 
-
+  
 * How to run
   This file accepts 2 inputs:
   1) path to json file containing lab specification
@@ -57,13 +57,13 @@ if __name__ == '__main__':
         dirStructPath = sys.argv[2]
         dirStructPath = dirStructPath +'/src'
         os.mkdir(dirStructPath)
+        with open(labSpecPath) as data_file:
+            data = json.load(data_file)
+        exps = getListOfExperiments(data)
+        createFiles(exps, dirStructPath)
     except Exception as error:
         if error == OSError:
             pass
-        with open(labSpecPath) as data_file:
-            data = json.load(data_file)
-            exps = getListOfExperiments(data)
-            createFiles(exps, dirStructPath)
 
 #+END_SRC
 
@@ -77,10 +77,10 @@ if __name__ == '__main__':
 #+BEGIN_SRC python
 def getListOfExperiments(data_dict):
     try:
-        exps = data_dict.get('experiments')
+       exps = data_dict.get('experiments')
+       return exps
     except Exception as error:
-        print('Error: '+str(error))
-        return exps
+       print ('Error: '+str(error))
 
 #+END_SRC
 

@@ -48,9 +48,9 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
         lab_id = sys.argv[1]
         html_dir_path = sys.argv[2]
-        newURL = URL + labId
-        detailed_lab_spec = sendRequest(newURL)
-        file_map = alignFileToId(detailed_lab_spec, html_dir_path)
+        newURL = URL + lab_id
+        detailed_lab_spec = send_request(newURL)
+        file_map = align_file_to_id(detailed_lab_spec, html_dir_path)
     else:
         print "Usage: python <fetch-content.py> <lab-Id> <DirPath to all empty HTML files>"
 
@@ -66,10 +66,11 @@ Sends HTTP request to server and fetches json content
 def send_request(url):
     try:
         jstr = requests.get(url)
-    except Exception as error:
-        print ('Error: '+str(error))
         j = json.loads(jstr.content)
         return j
+    except Exception as error:
+        print ('Error: '+str(error))
+       
 
 #+END_SRC
 
@@ -97,7 +98,7 @@ def align_file_to_id(labspec, html_dir_path):
     all_files = os.listdir(html_dir_path)
     html_files = [f for f in all_files if 'l.html' in f]
     exps = labspec.get('experiments')
-    for f in htmlFiles:
+    for f in html_files:
         ref = f.replace('_', ' ')
         for e in exps:
             exp_name = e.get('name')
@@ -124,41 +125,42 @@ def align_file_to_id(labspec, html_dir_path):
 #+NAME: edit_html_file
 #+BEGIN_SRC python
 def edit_html_file(file_name, html_dir_path, res_id, sub_sec_name):
-	file_path = os.path.join(html_dir_path,file_name)
-        content_file_name = edit_name(file_name)
-	sname = edit_name(sub_sec_name)
-	final_file_name = resId+'-'+sname+'.html'
-	try:
-            fp = open(filePath, 'w+')
-        except Exception as error:
-            print ('Error: '+str(error))
-        newUrl = URL + 'req/' + resId
-	r = requests.get(newUrl)
-	abs_path = r.content
-	html_boiler_plate = """
-        <!DOCTYPE html>
-        <html>
-        <script>
-        function loadDoc() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        }
-        };
-        var url = "%sreq/%s"
-        xhttp.open("GET", url, true);
-        xhttp.send();
-        }
-        </script>
-        <body onload="loadDoc()">
-        <object width="4000" height="4000" data="http://localhost/%s">
-        </object>
-        </body>
-        </html>""" % (URL, res_id ,final_file_name)
+    file_path = os.path.join(html_dir_path,file_name)
+    content_file_name = edit_name(file_name)
+    sname = edit_name(sub_sec_name)
+    final_file_name = res_id+'-'+sname+'.html'
+    try:
+        fp = open(file_path, 'w+')
+        newUrl = URL + 'req/' + res_id
+        r = requests.get(newUrl)
+        abs_path = r.content
+        html_boiler_plate = """
+<!DOCTYPE html>
+<html>
+<script>
+function loadDoc() {
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+
+}
+};
+var url = "%sreq/%s"
+xhttp.open("GET", url, true);
+xhttp.send();
+}
+</script>
+<body onload="loadDoc()">
+<object width="4000" height="4000" data="http://localhost/%s">
+</object>
+</body>
+</html>""" % (URL, res_id ,final_file_name)
         sp = BeautifulSoup(html_boiler_plate)
         html_boiler_plate = sp.prettify()
-	fp.write(html_boiler_plate)
-	fp.close()
+        fp.write(html_boiler_plate)
+        fp.close()
+    except Exception as error:
+        print ('Error: '+str(error))
 
 #+END_SRC
 
