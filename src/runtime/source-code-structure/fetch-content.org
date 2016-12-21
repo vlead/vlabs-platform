@@ -143,7 +143,6 @@ def edit_html_file(file_name, html_dir_path, res_id, sub_sec_name):
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("demo").innerHTML = this.responseText;
         }
         };
         var url = "%sreq/%s"
