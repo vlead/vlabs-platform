@@ -7,17 +7,46 @@
 #+OPTIONS: ^:nil
 
 * Introduction
+:PROPERTIES:
+:CUSTOM_ID: intro
+:END:
   Virtual Labs platform is a slew of services collaborating with each other
   while providing a mechanism to author and deliver content of Virtual Labs.
   
-  lab data service(lds), content service and translators make up the core of
-  the platform.  Each experiment or a lab has a specification detailing the
-  structure of an experiment or a lab and this specification is the glue
-  between authored content and delivered content. 
+  lab data service(lds), content service, experiment service and translators
+  make up the core of the platform.  Each experiment or a lab has a
+  specification detailing the structure of an experiment or a lab and this
+  specification is the glue between authored content and delivered content.
 
+* Motivation
+  While writing this document, Virtual Labs is using Open edX as the platform
+  for serving virtual labs.  Open edX platform is both a:
+  - learning management system (LMS) providing features that allow an
+    instructor to manage the learning of the students by setting up a learning
+    plan, evaluation, fixing dates for submission of home works, etc.
+  - content management server (CMS): 
+
+* Requirements
+:PROPERTIES:
+:CUSTOM_ID: requirements
+:END:
+
+  1. Untie authoring of content to delivery of content.  
+     - Content authoring includes:
+       + building an experiment also known as simulation that is always software and
+       + writing text around this experiment.
+     - Delivery of content, the content can be delivered either from 
+       + MOOC platforms like Open edX, Google Course Builder, Moodle etc.
+         These are also known as learning management systems (LMS). 
+       + or from a custom delivery platform built by VLEAD.
+
+       The advantage of using an existing MOOC platform is that the functions
+       of single sign on, persistence, uniform UI are built into the platform.
+       With a VLEAD delivery platform, these functions will have to be built.
+  
+  
 
 * Specification
-
   Every experiment and a lab has a specification.  The specification provides a
   unique ID, name, contents of an experiment and other meta information of
   either a lab or experiment.  This information includes: developer details,
@@ -63,6 +92,10 @@
   }
   #+END_EXAMPLE
     
+
+** Process
+   An experiment or a lab developer 
+
 * Application
 
 1. [[./requirements/index.org][Requirements]]
