@@ -1,4 +1,4 @@
-#+TITLE: Building a Content Delivery Adapters:  Ground up to the Cloud
+#+TITLE: Virtual Labs Platform
 #+AUTHOR: VLEAD
 #+DATE: [2016-11-08 Tue]
 #+SETUPFILE: ./org-templates/level-0.org
@@ -6,9 +6,63 @@
 #+EXCLUDE_TAGS: boilerplate
 #+OPTIONS: ^:nil
 
-* Version/Branch History
+* Introduction
+  Virtual Labs platform is a slew of services collaborating with each other
+  while providing a mechanism to author and deliver content of Virtual Labs.
+  
+  lab data service(lds), content service and translators make up the core of
+  the platform.  Each experiment or a lab has a specification detailing the
+  structure of an experiment or a lab and this specification is the glue
+  between authored content and delivered content. 
 
 
+* Specification
+
+  Every experiment and a lab has a specification.  The specification provides a
+  unique ID, name, contents of an experiment and other meta information of
+  either a lab or experiment.  This information includes: developer details,
+  the organization a lab belongs to.  This specification is different from the
+  deployment specification of an experiment. 
+
+** Experiment Specification  
+   An experiment is a basic functional unit of virtual labs.  An experiment is
+   a combination of static content and simulation.  Each experiment is
+   identified by a unique id, name, organization, etc. 
+
+  #+BEGIN_EXAMPLE
+  {"experiment": {"id": "e99847", 
+                  "name": "Parallel and distributed processing", 
+                  "overview": "This deals with eiciting how parallel and distributed processing is done", 
+                  "sections" : [{"name": "Introduction"},
+                                {"name": "Objective"},
+                                {"name": "Tutorial"},
+                                {"name": "Illustration"},
+                                {"name": "Procedure"},
+                                {"name": "Experiment"},        
+                                {"name": "Observations"},
+                                {"name": "Assignment"},  
+                                {"name": "References"}]
+                }
+  }
+  #+END_EXAMPLE
+  
+
+** Lab Specification  
+   A lab is collation of experiments.  A lab is identified by a unique id.  The
+   lab specification contains this identifier along with name, name,
+   organization, etc.  The experiments in a lab are specified by including
+   their respective ids. 
+
+  #+BEGIN_EXAMPLE
+  {"lab": {"id": "cse02", 
+                  "name": "Computer Programming",
+                  "overview": "This lab deals with computer programming",
+                  "sections" : [{"name": "Introduction"},
+                                {"experiments": [e100, e200, ....]}]
+                }
+  }
+  #+END_EXAMPLE
+    
 * Application
 
 1. [[./requirements/index.org][Requirements]]
@@ -20,6 +74,7 @@
 4. [[./runtime/index.org][Runtime]]
 
 5. [[./deployment/index.org][Deployment]]
+
 
 * Tangle                                       :boilerplate:
 #+BEGIN_SRC python :eval no :tangle __init__.py
