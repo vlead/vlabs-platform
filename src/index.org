@@ -10,7 +10,7 @@
 :PROPERTIES:
 :CUSTOM_ID: intro
 :END:
-  Virtual Labs platform is a slew of services collaborating with each other
+  [[https://docs.google.com/drawings/d/1s_expWC1QOMXOHgLJHW40OB04FvJt--1vwpSVjhdoGY/edit?ts=5834280f][Virtual Labs platform]] is a slew of services collaborating with each other
   while providing a mechanism to author and deliver content of Virtual Labs.
   
   lab data service(lds), content service, experiment service and translators
