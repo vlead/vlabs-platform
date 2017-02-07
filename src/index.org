@@ -70,16 +70,15 @@
   {"experiment": {"id": "e99847", 
                   "name": "Parallel and distributed processing", 
                   "overview": "This deals with eiciting how parallel and distributed processing is done", 
-                  "sections" : [{"name": "Introduction"},
-                                {"name": "Objective"},
-                                {"name": "Tutorial"},
-                                {"name": "Illustration"},
-                                {"name": "Procedure"},
-                                {"name": "Experiment"},        
-                                {"name": "Observations"},
-                                {"name": "Assignment"},  
-                                {"name": "References"}]
-                }
+                  "sections" : ["Introduction", 
+                                "Objective",
+                                "Tutorial", 
+                                "Illustration", 
+                                "Procedure", 
+                                "Experiment",
+                                "Observations", 
+                                "Assignment", 
+                                "References"]
   }
   #+END_EXAMPLE
   
