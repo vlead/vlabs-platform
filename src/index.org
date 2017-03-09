@@ -52,8 +52,6 @@
      single sign on, persistence, uniform UI are built into the platform.  With
      a VLEAD delivery platform, these functions will have to be built.
   
-  
-
 * Specification
   Every experiment and a lab has a specification.  The specification provides a
   unique ID, name, contents of an experiment and other meta information of
@@ -67,39 +65,55 @@
    identified by a unique id, name, organization, etc. 
 
   #+BEGIN_EXAMPLE
-  {"experiment": {"id": "e99847", 
-                  "name": "Parallel and distributed processing", 
-                  "overview": "This deals with eiciting how parallel and distributed processing is done", 
-                  "sections" : ["Introduction", 
-                                "Objective",
-                                "Tutorial", 
-                                "Illustration", 
-                                "Procedure", 
-                                "Experiment",
-                                "Observations", 
-                                "Assignment", 
-                                "References"]
+  {
+    "experiment": {
+      "id": "e99847",
+      "name": "Parallel and distributed processing",
+      "overview": "This deals with eliciting how parallel and distributed processing is done",
+      "sections": [
+        "Introduction",
+        "Objective",
+        "Tutorial",
+        "Illustration",
+        "Procedure",
+        "Experiment",
+        "Observations",
+        "Assignment",
+        "References"
+      ]
+    },
+    "content-type": "org"
   }
   #+END_EXAMPLE
-  
 
 ** Lab Specification  
    A lab is collation of experiments.  A lab is identified by a unique id.  The
-   lab specification contains this identifier along with name, name,
-   organization, etc.  The experiments in a lab are specified by including
-   their respective ids. 
+   lab specification contains this identifier along with name, organization,
+   etc.  The experiments in a lab are specified by including their respective
+   ids.
 
-  #+BEGIN_EXAMPLE
-  {"lab": {"id": "cse02", 
-                  "name": "Computer Programming",
-                  "overview": "This lab deals with computer programming",
-                  "sections" : [{"name": "Introduction"},
-                                {"experiments": [e100, e200, ....]}]
-                }
-  }
-  #+END_EXAMPLE
+   #+BEGIN_EXAMPLE
+   {
+     "lab": {
+       "id": "cse02",
+       "name": "Computer Programming",
+       "overview": "This lab deals with computer programming",
+       "sections": [
+         {
+           "name": "Introduction"
+         },
+         {
+           "experiments": [
+             "e100",
+             "e200"
+           ]
+         }
+       ]
+     },
+     "content-type": "org"
+   }
+   #+END_EXAMPLE
     
-
 ** Process
    An experiment or a lab developer 
 
@@ -115,8 +129,7 @@
 
 5. [[./deployment/index.org][Deployment]]
 
-
-* Tangle                                       :boilerplate:
+* Tangle                                                        :boilerplate:
 #+BEGIN_SRC python :eval no :tangle __init__.py
 print "content delivery adapter package"
 #+END_SRC
