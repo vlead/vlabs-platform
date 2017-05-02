@@ -1,0 +1,26 @@
+#+TITLE: Sitemap for project org-docs
+
+   + data-model
+     + [[file:data-model/index.org][Data Model for Content Delivery Adapters]]
+   + deployment
+     + [[file:deployment/index.org][Deploying the application on a server]]
+   + design
+     + [[file:design/index.org][Design of Content Delivery Adapters]]
+   + org-templates
+     + [[file:org-templates/level-0.org][level-0]]
+     + [[file:org-templates/level-1.org][level-1]]
+     + [[file:org-templates/level-2.org][level-2]]
+     + [[file:org-templates/level-3.org][level-3]]
+     + [[file:org-templates/tex-macros.org][tex-macros]]
+   + requirements
+     + [[file:requirements/index.org][Requirements for Content Delivery Adapters]]
+   + runtime
+     + open-edx-structure
+       + [[file:runtime/open-edx-structure/index.org][OpenedX Course Structure generator]]
+     + source-code-structure
+       + [[file:runtime/source-code-structure/hooks.org][Hooks]]
+       + [[file:runtime/source-code-structure/map.org][Map]]
+       + [[file:runtime/source-code-structure/fetch-content.org][Source Code Structure generator]]
+       + [[file:runtime/source-code-structure/index.org][Source Code Structure generator+]]
+     + [[file:runtime/index.org][Sturcture Generator]]
+   + [[file:index.org][Building a Content Delivery Adapters:  Ground up to the Cloud]]

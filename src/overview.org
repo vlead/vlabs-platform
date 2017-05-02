@@ -1,0 +1,124 @@
+#+TITLE: VLABS PLATFORM OVERVIEW
+#+AUTHOR: VLEAD
+#+SETUPFILE: ./org-templates/level-0.org
+
+* Introduction
+  Virtual Labs platform is a slew of micro-services collaborating with each
+  other while providing a mechanism to author and deliver content of Virtual
+  Labs. Lab data service (LDS), content service, experiment service and translators
+  make up the core of the platform. Each experiment or a lab has a
+  specification detailing the structure of an experiment or a lab and this
+  specification is the glue between authored content and delivered content.
+
+  The Vlabs platform design can be found [[./Vlabs-platform-design.png][=here=]]
+
+
+* Lab Spec
+  Based upon an author's requirements, a lab specification is generated, which
+  is in a JSON format and passed along to the Translators application. The lab
+  specification includes various information about a lab or an experiment
+
+** Experiment Specification
+   Experiments are the unit blocks of the Vlabs platform. The experiment
+   specification consists of an unique ID, name, a brief overview and the
+   various subsections of the experiment. The content type can be either org or
+   md format, depending on the requirements of the author.
+
+#+BEGIN_EXAMPLE
+{
+  "experiment": {
+    "id": "e99847",
+    "name": "Parallel and distributed processing",
+    "overview": "This deals with eliciting how parallel and distributed processing is done",
+    "sections": [
+      "Introduction",
+      "Objective",
+      "Tutorial",
+      "Illustration",
+      "Procedure",
+      "Experiment",
+      "Observations",
+      "Assignment",
+      "References"
+    ]
+  },
+  "content-type": "org"
+}
+#+END_EXAMPLE
+
+
+** Lab Specification
+   A lab is an aggregate of experiments. These experiments can all be created by
+   the same author or by different authors as well.
+
+#+BEGIN_EXAMPLE
+{
+  "lab": {
+    "id": "cse02",
+    "name": "Computer Programming",
+    "overview": "This lab deals with computer programming",
+    "sections": [
+      {
+        "name": "Introduction"
+      },
+      {
+        "experiments": [
+          "e100",
+          "e200"
+        ]
+      }
+    ]
+  },
+  "content-type": "org"
+}
+#+END_EXAMPLE
+
+
+* Open edX
+  Vlabs is currently using Open edX platform as the platform of choice for
+  serving the Vlabs content. The structure generators module for Open edX
+  contains an automated script that converts a lab specification that is in a
+  JSON format file to packaged structured file that is acceptable by the
+  Openedx platform.
+
+
+* Translators Application
+  The [[https://github.com/vlead/translators/tree/develop][=Translators=]] module works as a content skeleton generator for a lab
+  specification. The Translators app accepts a lab specification through its
+  REST interface and interacts with its system through its system interface to
+  generate the required structure of the lab or experiment.
+
+  The Translators app also integrates the structure generators module for Open
+  edX within itself and hence ensures backward compatibility with the previous
+  operating process of the Vlabs platform.
+
+  The Translators app also versions the experiment generated on Github which in
+  turn is accessible to the remote author.
+
+** Creating an experiment
+   The output of this route is a versioned structure of the experiment pushed
+   onto Github that can be accessed by an author.
+
+
+** Creating an Openedx lab
+The output of this route is a packaged structure of the lab files required by
+openedx
+
+
+* Lab data service
+  The LDS module stores information about the lab and experiment
+  specifications. The LDS module also maintains a resource mapping between the
+  experiment IDs and their corresponding content.
+
+
+* HTML resource generator
+  This module observes the hooks placed on the experiments and proceed to pull
+  the updated experiments and generate new HTML content files. It requests the
+  Lab Data Service for a resource map and adds any new resources generated to
+  this resource map. This resource map along with the new content is pushed
+  onto the content server.
+
+
+* Content Server
+  This server interacts with the web browsers. The web browser send a request
+  to the content server and the server responds with the corresponding resource content.
