@@ -2,3 +2,5 @@ elisp
 literate-tools
 tangle-make
 build
+src/org-templates
+src/style
