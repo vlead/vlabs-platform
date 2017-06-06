@@ -114,8 +114,44 @@
    }
    #+END_EXAMPLE
     
+** Translators
+   Translators is a service.  Given an experiment specification, 
+
 ** Process
    An experiment or a lab developer 
+
+** Resource to ID Mapper
+   Given an experiment id, resource ids are generated and mapped to
+   each resource.  This map is in json format.
+
+   Microservice LDS provides the API that returns this mapping. The input to
+   the API is the id of the experiment, here in this example it is =e99847= and
+   output is the resource to id map.
+
+  #+BEGIN_EXAMPLE
+  {
+    "experiment_resource_map": {
+      "name": "e99847-name",
+      "overview": "e99847-overview",
+      "Introduction" : "e99847-intro",
+      "Objective"  : "e99847-objective",
+      "Tutorial"   : "e99847-tutorial",
+      "Illustration" : "e99847-illustration",
+      "Procedure"    : "e99847-procedure",
+      "Experiment"   : "e99847-experiment",
+      "Observations" : "e99847-observations",
+      "Assignment"   : "e99847-assignment",
+      "References"   : "e99847-references"
+    }
+  }
+  #+END_EXAMPLE
+
+
+** Generate html files from a github repo containing either org/md files
+   Whenever an experiment repository is tagged or committed on master branch,
+   an API call is made to a service which builds the repository.  Building of
+   repository ensures all the files in a markup language (here either in md or
+   org) are converted to html. 
 
 * Application
 
