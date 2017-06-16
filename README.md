@@ -1,1 +1,0 @@
-# content-delivery-adapters

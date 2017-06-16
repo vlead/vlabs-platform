@@ -1,0 +1,12 @@
+#+TITLE: README
+#+AUTHOR: VLEAD
+#+DATE: [2017-06-15 Thu]
+#+SETUPFILE: ./org-templates/level-0.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil
+
+
+This repository sets out the requirements, use cases and design for the Virtual
+Labs platform.  The platform is realized in a bunch of repositories.  Start
+from the index.org in src directory.

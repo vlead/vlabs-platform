@@ -1,0 +1,39 @@
+#+TITLE: Requirements for Virtual Labs platform
+#+AUTHOR: VLEAD
+#+DATE: [2016-11-08 Tue]
+#+PROPERTY: results output
+#+PROPERTY: exports code
+#+SETUPFILE: ./org-templates/level-0.org
+#+options: ^:nil
+#+LATEX: Literal LaTeX code for export
+
+* Introduction 
+  This document lists all the requirements for Virtual Labs platform
+
+* Requirements
+:PROPERTIES:
+:CUSTOM_ID: requirements
+:END:
+
+  1. Untether authoring of content from delivery of content.
+     - Content authoring includes:
+       + building an experiment also known as simulation that is always software and
+       + writing text around this experiment.
+     - Delivery of content, the content can be delivered either from 
+       + MOOC platforms like Open edX, Google Course Builder, Moodle etc.
+         These are also known as learning management systems (LMS). 
+       + or from a custom delivery platform built by VLEAD.
+
+     The advantage of using an existing MOOC platform is that the functions of
+     single sign on, persistence, analytics, uniform UI are built into the platform.  With
+     a VLEAD delivery platform, these functions will have to be built.
+
+  2. The platform provides single sign on.
+
+  3. The platform provides persistence.
+
+  4. The platform provides a mechanism to capture analytics of usage of virtual
+     labs.
+
+  5. The platform provides a uniform look and feel.
+   

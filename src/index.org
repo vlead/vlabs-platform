@@ -7,10 +7,8 @@
 #+OPTIONS: ^:nil
 
 * Introduction
-:PROPERTIES:
-:CUSTOM_ID: intro
-:END:
-  [[https://docs.google.com/drawings/d/1s_expWC1QOMXOHgLJHW40OB04FvJt--1vwpSVjhdoGY/edit?ts=5834280f][Virtual Labs platform]] is a slew of services collaborating with each other
+
+  [[https://docs.google.com/drawings/d/1s_expWC1QOMXOHgLJHW40OB04FvJt--1vwpSVjhdoGY/edit?ts=5834280f][=Virtual Labs platform=]] is a slew of services collaborating with each other
   while providing a mechanism to author and deliver content of Virtual Labs.
   
   lab data service(lds), content service, experiment service and translators
@@ -19,6 +17,7 @@
   specification is the glue between authored content and delivered content.
 
 * Motivation
+
   While writing this document, Virtual Labs is using Open edX as the platform
   for serving virtual labs.  Open edX platform is both a:
   - learning management system (LMS), LMS provides features that allow an
@@ -27,145 +26,15 @@
   - content management server (CMS), CMS allows content to be added, edited and
     served. 
 
-  Though Virtual Labs is happy to leverage the features of LMS -
+  Though =Virtual Labs= is happy to leverage the features of LMS -
   single-sign-on, persistence, uniform UI, the CMS becomes a bottleneck since
   content editing is done through Open Edx studio.  The tying of content
   editing through the studio undermines the freedom of using different editors
   and formats that are more flexible to generate content - read as html - that
-  a browser can interpret.
+  a browser can interpret.  Apart from untethering the content creation from
+  the hosting platform, the platform should be able to provide other services
+  like single sign on, persistence, analytics and uniform user interface. 
 
-* Requirements
-:PROPERTIES:
-:CUSTOM_ID: requirements
-:END:
+* [[./requirements.org][Requirements]]
 
-  1. Untether authoring of content from delivery of content.
-     - Content authoring includes:
-       + building an experiment also known as simulation that is always software and
-       + writing text around this experiment.
-     - Delivery of content, the content can be delivered either from 
-       + MOOC platforms like Open edX, Google Course Builder, Moodle etc.
-         These are also known as learning management systems (LMS). 
-       + or from a custom delivery platform built by VLEAD.
-
-     The advantage of using an existing MOOC platform is that the functions of
-     single sign on, persistence, uniform UI are built into the platform.  With
-     a VLEAD delivery platform, these functions will have to be built.
-  
-* Specification
-  Every experiment and a lab has a specification.  The specification provides a
-  unique ID, name, contents of an experiment and other meta information of
-  either a lab or experiment.  This information includes: developer details,
-  the organization a lab belongs to.  This specification is different from the
-  deployment specification of an experiment. 
-
-** Experiment Specification  
-   An experiment is a basic functional unit of virtual labs.  An experiment is
-   a combination of static content and simulation.  Each experiment is
-   identified by a unique id, name, organization, etc. 
-
-  #+BEGIN_EXAMPLE
-  {
-    "experiment": {
-      "id": "e99847",
-      "name": "Parallel and distributed processing",
-      "overview": "This deals with eliciting how parallel and distributed processing is done",
-      "sections": [
-        "Introduction",
-        "Objective",
-        "Tutorial",
-        "Illustration",
-        "Procedure",
-        "Experiment",
-        "Observations",
-        "Assignment",
-        "References"
-      ]
-    },
-    "content-type": "org"
-  }
-  #+END_EXAMPLE
-
-** Lab Specification  
-   A lab is collation of experiments.  A lab is identified by a unique id.  The
-   lab specification contains this identifier along with name, organization,
-   etc.  The experiments in a lab are specified by including their respective
-   ids.
-
-   #+BEGIN_EXAMPLE
-   {
-     "lab": {
-       "id": "cse02",
-       "name": "Computer Programming",
-       "overview": "This lab deals with computer programming",
-       "sections": [
-         {
-           "name": "Introduction"
-         },
-         {
-           "experiments": [
-             "e100",
-             "e200"
-           ]
-         }
-       ]
-     },
-     "content-type": "org"
-   }
-   #+END_EXAMPLE
-    
-** Translators
-   Translators is a service.  Given an experiment specification, 
-
-** Process
-   An experiment or a lab developer 
-
-** Resource to ID Mapper
-   Given an experiment id, resource ids are generated and mapped to
-   each resource.  This map is in json format.
-
-   Microservice LDS provides the API that returns this mapping. The input to
-   the API is the id of the experiment, here in this example it is =e99847= and
-   output is the resource to id map.
-
-  #+BEGIN_EXAMPLE
-  {
-    "experiment_resource_map": {
-      "name": "e99847-name",
-      "overview": "e99847-overview",
-      "Introduction" : "e99847-intro",
-      "Objective"  : "e99847-objective",
-      "Tutorial"   : "e99847-tutorial",
-      "Illustration" : "e99847-illustration",
-      "Procedure"    : "e99847-procedure",
-      "Experiment"   : "e99847-experiment",
-      "Observations" : "e99847-observations",
-      "Assignment"   : "e99847-assignment",
-      "References"   : "e99847-references"
-    }
-  }
-  #+END_EXAMPLE
-
-
-** Generate html files from a github repo containing either org/md files
-   Whenever an experiment repository is tagged or committed on master branch,
-   an API call is made to a service which builds the repository.  Building of
-   repository ensures all the files in a markup language (here either in md or
-   org) are converted to html. 
-
-* Application
-
-1. [[./requirements/index.org][Requirements]]
-
-2. [[./design/index.org][Design]]
-
-3. [[./data-model/index.org][Data Model]]
-
-4. [[./runtime/index.org][Runtime]]
-
-5. [[./deployment/index.org][Deployment]]
-
-* Tangle                                                        :boilerplate:
-#+BEGIN_SRC python :eval no :tangle __init__.py
-print "content delivery adapter package"
-#+END_SRC
+* [[./design.org][Design]]
