@@ -31,9 +31,11 @@
   content editing is done through Open Edx studio.  The tying of content
   editing through the studio undermines the freedom of using different editors
   and formats that are more flexible to generate content - read as html - that
-  a browser can interpret.  Apart from untethering the content creation from
-  the hosting platform, the platform should be able to provide other services
-  like single sign on, persistence, analytics and uniform user interface. 
+  a browser can interpret.  
+
+  Apart from untethering the content creation from the hosting platform, the
+  platform should be able to provide other services like single sign on,
+  persistence, analytics and uniform user interface.
 
 * [[./requirements.org][Requirements]]
 

@@ -8,7 +8,7 @@
 
 
 * Introduction 
-  The =design= of the =Content Delivery Adapters= is captured here.
+  This document provides the high level design of the Virtual Labs platform.
 
 * Design
   The design of the platform flows from this diagram.
@@ -19,18 +19,20 @@
 
  Click [[https://docs.google.com/drawings/d/1s_expWC1QOMXOHgLJHW40OB04FvJt--1vwpSVjhdoGY/edit?ts=5834280f][=here=]] to edit the image.
 
-* Specification as a glue
-  Every experiment and a lab has a specification.  The experiment specification
-  provides a unique ID, name, and other meta information about the contents an
-  experiment. contents of an experiment and other meta information of either a
-  lab or experiment.  This information includes: developer details, the
-  organization a lab belongs to.  This specification is different from the
-  deployment specification of an experiment.
+* Specification as the starting point
+  Every experiment and a lab has a specification.  The specification provides a
+  unique ID, name, and other meta information about the contents of an
+  experiment.  An experiment author works with VLEAD or via other proposed
+  process to obtain/finalize the specification.  This process assigns a unique
+  id to the specification.  Once finalized, the specification gets pushed to
+  [[https://github.com/vlead/lab-specifications][specifications]] repository.  This process of creation of a specification can
+  be automated using a web gui.
 
 ** Experiment Specification  
    An experiment is a basic functional unit of virtual labs.  An experiment is
    a combination of static content and simulation.  Each experiment is
-   identified by a unique id, name, organization, etc. 
+   identified by a unique id, name, overview, list of sections and the markup
+   language used to write the content for the experiment.
 
   #+BEGIN_EXAMPLE
   {
@@ -54,11 +56,11 @@
   }
   #+END_EXAMPLE
 
-** Lab Specification  
+** Lab Specification
    A lab is collation of experiments.  A lab is identified by a unique id.  The
-   lab specification contains this identifier along with name, organization,
-   etc.  The experiments in a lab are specified by including their respective
-   ids.
+   lab specification contains this identifier along with name, overview, a list
+   of sections where the list of experiments is one of the section.  The
+   experiments are specified by their unique ids.
 
    #+BEGIN_EXAMPLE
    {
@@ -82,8 +84,22 @@
    }
    #+END_EXAMPLE
     
-** Translators
-   Translators is a service.  Given an experiment specification, 
+
+* Creation a repository for editing content from a specification
+  When a new specification is committed to the [[https://github.com/vlead/lab-specifications][specifications]] repository, a
+  corresponding repository for that specification is created.  When an existing
+  specification is updated, the corresponding repository is updated.
+
+  The repository holds files in the markup (md or org) format specified in the
+  specification. The list of files correspond to the sections in the
+  repository.
+
+  The directory and file structure of the created repo is given below.
+  #+BEGIN_EXAMPLE
+  
+  #+END_EXAMPLE
+
+
 
 ** Process
    An experiment or a lab developer 
