@@ -36,4 +36,3 @@
      labs.
 
   5. The platform provides a uniform look and feel.
-   

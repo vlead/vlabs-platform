@@ -19,6 +19,7 @@
 
  Click [[https://docs.google.com/drawings/d/1s_expWC1QOMXOHgLJHW40OB04FvJt--1vwpSVjhdoGY/edit?ts=5834280f][=here=]] to edit the image.
 
+
 * Specification as the starting point
   Every experiment and a lab has a specification.  The specification provides a
   unique ID, name, and other meta information about the contents of an
@@ -99,10 +100,9 @@
   
   #+END_EXAMPLE
 
-
-
 ** Process
    An experiment or a lab developer 
+
 
 ** Resource to ID Mapper
    Given an experiment id, resource ids are generated and mapped to
@@ -135,6 +135,5 @@
    Whenever an experiment repository is tagged or committed on master branch,
    an API call is made to a service which builds the repository.  Building of
    repository ensures all the files in a markup language (here either in md or
-   org) are converted to html. 
-
+   org) are converted to html.
 
