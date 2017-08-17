@@ -8,36 +8,53 @@
 
 
 * Introduction 
-  This document provides the high level design of the Virtual Labs platform.
+  This document provides the high level design of the
+  Virtual Labs platform.
 
 * Design
   The design of the platform flows from this diagram.
-#+BEGIN_HTML
-<img src="https://docs.google.com/drawings/d/e/2PACX-1vTEiwPdyaMR3h9jmGLwbHYLZ1ajJQN2G9u1K5OXx3c8MjsOQbNrS8njjxLiMSSHsE45QExAuPOttC4F/pub?w=967&h=708">
-<p align="center"> Platform with Content Server </p>
-#+END_HTML
+  #+BEGIN_HTML
+  <img src="https://docs.google.com/drawings/d/e/2PACX-1vTEiwPdyaMR3h9jmGLwbHYLZ1ajJQN2G9u1K5OXx3c8MjsOQbNrS8njjxLiMSSHsE45QExAuPOttC4F/pub?w=967&h=708">
+  <p align="center"> Platform with Content Server </p>
+  #+END_HTML
 
- Click [[https://docs.google.com/drawings/d/1s_expWC1QOMXOHgLJHW40OB04FvJt--1vwpSVjhdoGY/edit?ts=5834280f][=here=]] to edit the image.
+  Click [[https://docs.google.com/drawings/d/1s_expWC1QOMXOHgLJHW40OB04FvJt--1vwpSVjhdoGY/edit?ts=5834280f][=here=]] to edit the image.
 
 
 * Specification as the starting point
-  Every experiment and a lab has a specification.  The specification provides a
-  unique ID, name, and other meta information about the contents of an
-  experiment.  An experiment author works with VLEAD or via other proposed
-  process to obtain/finalize the specification.  This process assigns a unique
-  id to the specification.  Once finalized, the specification gets pushed to
-  [[https://github.com/vlead/lab-specifications][specifications]] repository.  This process of creation of a specification can
-  be automated using a web gui.
+*** As an identifier
+    Every experiment and a lab has a specification.  The
+    specification provides a unique ID, name, and other meta
+    information about the contents of an experiment.  
+
+*** Creation 
+    An experiment author works with VLEAD or via other
+    proposed process to obtain/finalize the specification.
+    This process assigns a unique id to the specification.
+    Once finalized, the specification gets pushed to
+    [[https://github.com/vlead/lab-specifications][specifications]] repository.  The process of creation of a
+    specification can be automated using a web gui. The lab
+    data service [[https://github.com/vlead/lab-data-service-dashboard][dashboard]] provides the web interface for
+    the creation of a specification.  The [[https://github.com/vlead/lab-data-service-dashboard/issues/26][evolution]] of this
+    dashboard is geared to meet this functionality.
+
+*** The growth of specification
+    The specification grows during the lifetime of an
+    experiment.  It is conceived when an experiment
+    developer initiates the creation of an experiment.
+    Other data like it's deployment url gets updated by the
+    service that deploys the experiment.
 
 ** Experiment Specification  
-   An experiment is a basic functional unit of virtual labs.  An experiment is
-   a combination of static content and simulation.  Each experiment is
-   identified by a unique id, name, overview, list of sections and the markup
+   An experiment is a basic functional unit of virtual labs.
+   An experiment is a combination of static content and
+   simulation.  Each experiment is identified by a unique
+   id, name, overview, list of sections and the markup
    language used to write the content for the experiment.
 
-  #+BEGIN_EXAMPLE
-  {
-    "experiment": {
+   #+BEGIN_EXAMPLE
+   {
+   "experiment": {
       "id": "e99847",
       "name": "Parallel and distributed processing",
       "overview": "This deals with eliciting how parallel and distributed processing is done",
@@ -47,21 +64,22 @@
         "Tutorial",
         "Illustration",
         "Procedure",
-        "Experiment",
+        "Simulation",
         "Observations",
         "Assignment",
         "References"
       ]
     },
     "content-type": "org"
-  }
-  #+END_EXAMPLE
+   }
+   #+END_EXAMPLE
 
 ** Lab Specification
-   A lab is collation of experiments.  A lab is identified by a unique id.  The
-   lab specification contains this identifier along with name, overview, a list
-   of sections where the list of experiments is one of the section.  The
-   experiments are specified by their unique ids.
+   A lab is a collation of experiments.  A lab is identified
+   by a unique id.  The lab specification contains this
+   identifier along with name, overview, a list of sections
+   where the list of experiments is one of the sections.
+   The experiments are specified by their unique ids.
 
    #+BEGIN_EXAMPLE
    {
@@ -87,29 +105,36 @@
     
 
 * Creation a repository for editing content from a specification
-  When a new specification is committed to the [[https://github.com/vlead/lab-specifications][specifications]] repository, a
-  corresponding repository for that specification is created.  When an existing
-  specification is updated, the corresponding repository is updated.
+  When a new specification is committed to the
+  [[https://github.com/vlead/lab-specifications][specifications]] repository, a corresponding repository for
+  that specification is created.  When an existing
+  specification is updated, the corresponding repository is
+  updated.
 
-  The repository holds files in the markup (md or org) format specified in the
-  specification. The list of files correspond to the sections in the
-  repository.
+  The repository holds files in the markup (md or org)
+  format specified in the specification. The list of files
+  correspond to the sections in the repository.
 
-  The directory and file structure of the created repo is given below.
+  The directory and file structure of the created repo is
+  given below.
+
   #+BEGIN_EXAMPLE
   
   #+END_EXAMPLE
+
+  A [[https://github.com/vlead/translators][repository]] is created to realize this functionality.
 
 ** Process
    An experiment or a lab developer 
 
 
 ** Resource to ID Mapper
-   Given an experiment id, resource ids are generated and mapped to
-   each resource.  This map is in json format.
+   Given an experiment id, resource ids are generated and
+   mapped to each resource.  This map is in json format.
 
-   Microservice LDS provides the API that returns this mapping. The input to
-   the API is the id of the experiment, here in this example it is =e99847= and
+   Microservice LDS provides the API that returns this
+   mapping. The input to the API is the id of the
+   experiment, here in this example it is =e99847= and
    output is the resource to id map.
 
   #+BEGIN_EXAMPLE
