@@ -36,3 +36,10 @@
      labs.
 
   5. The platform provides a uniform look and feel.
+
+  6. All the services that make up the vlabs platform are
+     auto deployable.
+
+  7. The experiment is auto fitted into Open edX platform.
+
+  8. Apply same styling to the skeleton and to the content.

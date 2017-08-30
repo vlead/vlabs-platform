@@ -11,6 +11,7 @@
   This document provides the high level design of the
   Virtual Labs platform.
 
+
 * Design
   The design of the platform flows from this diagram.
   #+BEGIN_HTML
@@ -162,3 +163,26 @@
    repository ensures all the files in a markup language (here either in md or
    org) are converted to html.
 
+
+* Adapter
+  From every specification an experiment is generated.  This
+  experiment can be run from a browser.  When this
+  experiment is generated, entire content of the experiment
+  is not placed.  Instead, handlers are attached to the
+  events on each of the sections in the experiment.  This
+  means a handler to fetch the content of =Introduction= is
+  attached for the click event on the =Introduction=
+  section.  Similarly, for other sections like the
+  simulation, etc.
+
+  The handlers that are attached make ajax calls to
+  =adapter= service with the payload identifying the
+  resource.  It is the responsibility of the adapter to
+  fetch the content from content-server using the resource
+  id.
+
+  By having an intermediary -- adapter -- between the server
+  that holds the content and the browser that displays the
+  content, apart from having the ability to apply different
+  styles from a configuration, other APIs, say to gather
+  analytics can be gained. 
