@@ -43,3 +43,7 @@
   7. The experiment is auto fitted into Open edX platform.
 
   8. Apply same styling to the skeleton and to the content.
+
+  9. The platform has the ability to add services
+     dynamically.  What this means is that, the platform
+     services are embedded into the content dynamically. 

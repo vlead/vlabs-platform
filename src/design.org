@@ -105,7 +105,7 @@
    #+END_EXAMPLE
     
 
-* Creation a repository for editing content from a specification
+* Creation of a repository from a specification
   When a new specification is committed to the
   [[https://github.com/vlead/lab-specifications][specifications]] repository, a corresponding repository for
   that specification is created.  When an existing
@@ -158,9 +158,10 @@
 
 
 ** Generate html files from a github repo containing either org/md files
-   Whenever an experiment repository is tagged or committed on master branch,
-   an API call is made to a service which builds the repository.  Building of
-   repository ensures all the files in a markup language (here either in md or
+   Whenever an experiment repository is tagged or committed
+   on master branch, an API call is made to a service which
+   builds the repository.  Building of repository ensures
+   all the files in a markup language (here either in md or
    org) are converted to html.
 
 
@@ -186,3 +187,6 @@
   content, apart from having the ability to apply different
   styles from a configuration, other APIs, say to gather
   analytics can be gained. 
+
+
+
