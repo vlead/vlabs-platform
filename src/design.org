@@ -184,9 +184,11 @@
 
   By having an intermediary -- adapter -- between the server
   that holds the content and the browser that displays the
-  content, apart from having the ability to apply different
-  styles from a configuration, other APIs, say to gather
-  analytics can be gained. 
+  content, the following advantages can be gained:
+  1. Application of styles from a configuration,
+  2. Insertion or deletion of calls to platform services.
+     This translates to a scenario where infrastructure for
+     collecting telemetry could be inserted. 
 
 
 
