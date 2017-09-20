@@ -1,0 +1,38 @@
+#+TITLE: 
+#+AUTHOR:VLEAD
+#+DATE:
+#+SETUPFILE: ./org-templates/level-0.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil
+
+* Introduction
+  
+
+* [2017-09-20 Wed]
+  1. Arghya will make a pull request to vlead-onboarding
+     containing the automation for setting up the VLEAD
+     development environment.
+  2. All the earlier minutes of meetings and discussions are
+     to be imported from SSAD repo to align with the
+     [[https://github.com/vlead/2017-monsoon-ssad-projects/blob/master/src/guidelines.org#things-done-at-the-weekly-meeting][guidelines]]. You should have a plan.org with the
+     tabulated issues. 
+  3. Pull request review
+     1. Make changes in develop or other branches on the
+        forked repo.
+     2. Make a pull request to the develop branch of the
+        blessed repo.
+  4. [[https://github.com/vlead/vlead-onboarding/blob/master/src/set-up-vlead-openedx-vagrant-box.org][Install]] Open edX vagrant box.
+  5. [[https://github.com/vlead/setup-ovpl-centos/blob/develop/user-docs/run-ads-using-vagrant-box.org][Install]] ADS service as a vagrant box.
+  6. Make all the services - translators,
+     resource-generator, content-server auto deployable.
+     Refer [[https://github.com/vlead/ovpl/blob/master/docs/understanding-labspec.org][documentation]] in developing the deployment
+     specification.  Also refer [[https://github.com/vlead/lab-data-service][lds]] which is already auto
+     deployed.  Create a folder =scripts= and put the
+     deployment specification in this folder.  Please follow
+     the same naming conventions as in [[https://github.com/vlead/lab-data-service][lds]].  Refer [[http://dev.vlabs.ac.in/labs/lab-structure.html][here]] to
+     understand the structure.  Refer [[https://github.com/vlead/outreach-portal/blob/master/scripts/start][outreach-portal]] for
+     defining start and stop scripts.
+  7. By next week, there should be a demonstration of the
+     creation of the experiment from developer's machine. 
+ 
