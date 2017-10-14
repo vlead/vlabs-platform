@@ -9,7 +9,74 @@
 * Introduction
   
 
-* [2017-09-20 Wed]
+* 2017-08-20 Mon
+** Agenda
+- First Client Meeting
+- To gather the project requirements
+
+** Discussion Points
+- Giving access of Github repos of the organization
+- The tools and processes used by the organization
+- Brief overview of the project and its milestones
+
+** Action
+   |---------------------------------------------------+------------------+----------+--------+---|
+   | Item                                              | Issue            | Artifact | Status |   |
+   |---------------------------------------------------+------------------+----------+--------+---|
+   | Github Handles noted by client                    | [[https://github.com/vlead/2017-monsoon-ssad-projects/issues/1][Github Issue]]     | None     | Done   |   |
+   | Access to working repos granted by client         | None             | None     | Done   |   |
+   | Client meeting time finalised on Wednesday @ 4:00 | [[https://github.com/vlead/2017-monsoon-ssad-projects/blob/master/src/team-meeting-schedule.org][Meeting Schedule]] | None     | Done   |   |
+   |---------------------------------------------------+------------------+----------+--------+---|
+
+* 2017-08-23 Wed
+** Agenda
+- Discuss the project milestones at a high level
+- Discuss the setting up of the development environment
+
+** Discussion Points
+- Giving access of Github repos of the organization
+- Making the services autodeployable
+- Open edX API integration
+
+** Action
+   |-----------------------------------+--------------------+----------+-------------|
+   | Item                              | Issue              | Artifact | Status      |
+   |-----------------------------------+--------------------+----------+-------------|
+   | Making all the services           | None               | Code     | In progress |
+   | auto-deployable                   |                    |          |             |
+   |-----------------------------------+--------------------+----------+-------------|
+   | Test and debug the Open edX       | Refer to [[https://github.com/vlead/vlabs-platform/issues/12][Issue #12]] | None     | In Progress |
+   | API in translators with a labspec |                    |          |             |
+   | from [[https://github.com/vlead/open-edx-specifications][open-edx-specifications]].     |                    |          |             |
+   |-----------------------------------+--------------------+----------+-------------|
+
+* 2017-09-20 Wed
+** Agenda
+- Create the project plan document
+- Discuss in detail the porject goals and feature implementation
+- Assess the work done and how to move forward
+
+** Discussion Points
+- All the earlier minutes of meetings and discussions are to be imported from SSAD repo to align with the [[https://github.com/vlead/2017-monsoon-ssad-projects/blob/master/src/guidelines.org#things-done-at-the-weekly-meeting][guidelines]].
+- Install ADS service as a vagrant box
+- Pull request review process
+- Automation of setting up the VLead environment
+
+** Action
+   |-------------------------------------------------------------------------------------------------------------------------+-----------+-------------+-------------+---|
+   | Item                                                                                                                    | Issue     | Artifact    | Status      |   |
+   |-------------------------------------------------------------------------------------------------------------------------+-----------+-------------+-------------+---|
+   | Make pull request regarding vlead-onboarding containing the automation for setting up the VLEAD development environment | [[https://github.com/vlead/2017-monsoon-ssad-projects/issues/4][Issue #4]]  | Code        | In Progress |   |
+   | All the earlier minutes of meetings and discussions are to be imported from SSAD repos to align with the [[https://github.com/vlead/2017-monsoon-ssad-projects/blob/master/src/guidelines.org#things-done-at-the-weekly-meeting][guidelines]]     | None      | meeting.org | In Progress |   |
+   | Install Open edX vagrant box                                                                                            | [[https://github.com/vlead/vlabs-platform/issues/16][Issue #16]] | None        | In Progress |   |
+   | Install ADS service as a vagrant box                                                                                    | [[https://github.com/vlead/vlabs-platform/issues/15][Issue #15]] | Code        | In Progress |   |
+   | Make all the services - translators, resource-generator, content-server auto deployable                                 | None      | Code        | In Progress |   |
+   |-------------------------------------------------------------------------------------------------------------------------+-----------+-------------+-------------+---|
+
+
+
+
+** From Thirumal [2017-09-20 Wed]
   1. Arghya will make a pull request to vlead-onboarding
      containing the automation for setting up the VLEAD
      development environment.
@@ -36,3 +103,21 @@
   7. By next week, there should be a demonstration of the
      creation of the experiment from developer's machine. 
  
+
+* Plan
+| S.no | Ref            | Item | Issue | Artifact | Status |
+|------+----------------+------+-------+----------+--------|
+|   1. | [[2017-08-20 Mon]] |      |       |          |        |
+
+* 2017-10-14 Sat
+  1. Collate all the action items from different tables to a
+     single table in plan.
+  2. Install Open edX from this [[https://github.com/vlead/vlead-onboarding/blob/master/src/set-up-vlead-openedx-vagrant-box.org][documentation]].
+  3. Pull requests from develop to develop for start/stop
+     scripts for resource-generator and content-server are
+     to be raised.
+  4. A separate org document for labspec.json.
+  5. Check the Open edx version of the experiment
+     generated. 
+     
+
