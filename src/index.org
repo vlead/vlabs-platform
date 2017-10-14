@@ -40,3 +40,8 @@
 * [[./requirements.org][Requirements]]
 
 * [[./design.org][Design]]
+
+* Other services
+  1. Translators
+  2. Resource Generator
+  3. Content Server

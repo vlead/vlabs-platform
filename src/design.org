@@ -26,7 +26,7 @@
 *** As an identifier
     Every experiment and a lab has a specification.  The
     specification provides a unique ID, name, and other meta
-    information about the contents of an experiment.  
+    information about the contents of an experiment.
 
 *** Creation 
     An experiment author works with VLEAD or via other
@@ -138,24 +138,23 @@
    experiment, here in this example it is =e99847= and
    output is the resource to id map.
 
-  #+BEGIN_EXAMPLE
-  {
-    "experiment_resource_map": {
-      "name": "e99847-name",
-      "overview": "e99847-overview",
-      "Introduction" : "e99847-intro",
-      "Objective"  : "e99847-objective",
-      "Tutorial"   : "e99847-tutorial",
-      "Illustration" : "e99847-illustration",
-      "Procedure"    : "e99847-procedure",
-      "Experiment"   : "e99847-experiment",
-      "Observations" : "e99847-observations",
-      "Assignment"   : "e99847-assignment",
-      "References"   : "e99847-references"
-    }
-  }
-  #+END_EXAMPLE
-
+   #+BEGIN_EXAMPLE
+   {
+     "experiment_resource_map": {
+       "name": "e99847-name",
+       "overview": "e99847-overview",
+       "Introduction" : "e99847-intro",
+       "Objective"  : "e99847-objective",
+       "Tutorial"   : "e99847-tutorial",
+       "Illustration" : "e99847-illustration",
+       "Procedure"    : "e99847-procedure",
+       "Experiment"   : "e99847-experiment",
+       "Observations" : "e99847-observations",
+       "Assignment"   : "e99847-assignment",
+       "References"   : "e99847-references"
+     }
+   }   
+   #+END_EXAMPLE
 
 ** Generate html files from a github repo containing either org/md files
    Whenever an experiment repository is tagged or committed
@@ -189,6 +188,23 @@
   2. Insertion or deletion of calls to platform services.
      This translates to a scenario where infrastructure for
      collecting telemetry could be inserted. 
+
+* Build the experiment from fragments
+  An experiment when built is broken into multiple
+  addressable fragments.  An experiment when viewed is
+  assembled from these fragments. 
+
+  Some of the challenges that arise are: how is the fidelity
+  maintained between the styles applied while building the
+  content; and while rendering the content.  
+
+  [[http://orgmode.org/manual/Publishing.html][org-publish]] converts org documents to html pages.  [[https://pandoc.org/][Pandoc]]
+  converts documents written in one markup language to
+  another.  But since a document is broken down to
+  fragments, should a service build these fragments while
+  rendering.
+
+  
 
 
 
