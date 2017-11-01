@@ -1,0 +1,58 @@
+#+TITLE: 
+#+AUTHOR:VLEAD
+#+DATE:
+#+SETUPFILE: ./org-templates/level-0.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil
+
+
+* Introduction
+  Setting up the services.
+
+* Translators
+  1. Change the github key in config.py -
+     /var/www/translators/code/runtime/config/
+  2. Did not work so fixed the proxy in wsgi.py
+     
+
+  2. traslators-ip/create_experiment
+     creates a repo on github from labspec.
+  3. traslators-ip/create_skeleton with the same payload
+     content type is missing, so an error.  fixed by
+     inserting this key and skeleton is created.
+  4. example :
+     https://github.com/test-platform-to-to-deleted/numerical-approximation-CSE04
+     here content is filled. 
+
+* Resource Generator
+  1. Copy the public key to content serve authorized keys
+  2. set CS_DEST in /var/www/resource-generator/code/runtime/config/config.py
+  3. create directory =/var/www/data=
+  4. set the proxy in wsgi.py
+  5. gunicorn has to run
+  6. use httprequester to post to http://192.168.33.4/resource by setting
+     =content-type= to =application/x-www-form-urlencoded=
+     and =content= to 
+     #+BEGIN_EXAMPLE
+     url=https://github.com/test-platform-to-to-deleted/numerical-approximation-CSE04
+     #+END_EXAMPLE
+
+
+
+* Content Server
+  1) set the proxy in wsgi.py
+  2) mkdir /var/www/resources
+  3) gunicorn has to run
+  4) handle static files, to do that copy
+     #+BEGIN_EXAMPLE
+            location /resources {
+                alias /var/www/resources;
+                autoindex on;
+       }
+     #+END_EXAMPLE
+       to =/etc/nginx/sites-enabled/content-server=
+
+  
+
+  6) http://csnginx.vlabs.ac.in/resources/numerical-approximation-CSE04/simulation-CSE04/simulation-CSE04.html
