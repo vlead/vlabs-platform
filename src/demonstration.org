@@ -202,6 +202,6 @@
      interpreted to make the right service and achieve what
      is directed.
 
-  2. The content server in the current implementation is not
-     a service and therefor a resource is not returned using
-     an API.
+  2. The content server in the current implementation does
+     not provide an API to request a resource based on a
+     resource id.
