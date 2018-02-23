@@ -1,0 +1,207 @@
+#+TITLE: Demonstration
+#+AUTHOR: VLEAD
+#+DATE: [2018-02-22 Thu]
+#+SETUPFILE: ./org-templates/level-0.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil
+
+* Introduction
+  This document provides details to demonstration vlabs
+  authoring platform.
+
+* Motivation
+  A virtual experiment is a web application that runs from a
+  browser.  Every experiment has a simulation and other
+  sections like introducing the experiment, explaining the
+  theory behind the phenomenon, etc. The simulation is
+  implemented using a programming language while other
+  sections are text. In most of the cases, JavaScript is
+  used, but in some cases written in Java or other
+  programming languages.  Like any web application, a
+  virtual lab is hosted on a web server.
+
+  Since an experiment is now a bunch of html files, one is
+  forced to write in a language that is meant for the
+  browser.  On the other hand light weight markup languages
+  allow a quicker ramp up to put up the content.  
+
+  Virtual Labs is a collection of virtual experiments
+  developed by multiple institutes.  To apply a uniform set
+  of styles across all the experiments is a challenge when
+  an html file are the basic unit of an experiment.  This
+  model removes the flexibility of applying new styles when
+  an experiment is rendered on the browser.
+
+  To overcome these limitations a new model of experiment
+  authoring from now on called VLABS authoring platform is
+  designed and built.  The VLABS authoring platform provides
+  other flexibilites too as they revealed in the following
+  sections.
+
+* Finalize a specification
+  Every experiment has a specification.  A prospective
+  author of a new experiment and the platform team (VLEAD)
+  negotiate on the final structure of the specification of a
+  experiment.
+  
+  An example is listed here.  It contains the name of the
+  experiment, different sections contained in the experiment
+  and the markup language used for writing the content of
+  the experiment are mentioned in the specification.  In
+  this example, the author chose =org=.  Markdown is another
+  light weight markup language.  The current implementation
+  supports org and is being extended to support markdown.
+
+  #+BEGIN_EXAMPLE
+  {
+         "experiment" : {
+                      "id": "e99800",
+                      "name": "Numerical Approximation",
+                      "overview": "This experiments deals with Numerical Approximation",
+                      "sections" : [
+                                 "Introduction",
+                                 "Objective",
+                                 "Manual",
+                                 "Theory",
+                                 "Procedure",
+                                 "Simulation",
+                                 "Further Reading"
+                                 ],
+                       "keywords" : [
+                                  "Data Structures",
+                                  "Computer Programming"
+                                 ]},
+         "content-type": "org"
+  }
+  #+END_EXAMPLE
+
+
+  The specification acts as a glue that binds all the stages
+  from development to hosting of an experiment.  Defining a
+  specification shifts the conception of a virtual lab from
+  a collection of static virtual experiments to a dynamic
+  collection based on keywords.
+  
+
+* Create a repository from a specification
+  After an experiment specification is finalized, the
+  platform team creates a git repository for the author.
+  The platform team communicates the [[https://github.com/test-platform-to-to-deleted/numerical-approximation-e99800][url]] of the repository
+  to the author.
+** Access the API to create the repo
+   1. URL is http://192.168.33.3/create_experiment
+   2. Method is =POST=
+   3. Payload is JSON and is the above spec
+   4. Once this successful, a [[https://github.com/test-platform-to-to-deleted/numerical-approximation-e99800][repo]] is created. 
+
+
+* Populate the repository with content
+  The author clones the [[https://github.com/test-platform-to-to-deleted/numerical-approximation-e99800][repo]] and uses her favorite editor to
+  write the content using the org markup language, since org
+  is mentioned in the specification.
+
+* Host the Content
+  Once the author makes a commit on the =master= branch, the
+  sources are built and hosted.  Each resource is identified
+  by a unique id on the hosting server for a later
+  reference.  The id mentioned in the specification is used
+  for the mapping between the resource on the server and a
+  unique id. 
+** Push the content to the content server
+   1. Access the API of the resource server to push the
+      content to the content server
+   2. URL is http://192.168.33.4/resource
+   3. Method is =POST=
+   4. Payload is
+      =https://github.com/test-platform-to-to-deleted/numerical-approximation-e99800=
+
+** Massage the content in the content server
+
+* Create the experiment
+  At the same time when the resources of an experiment are
+  hosted on the content server, an experiment skeleton is
+  also built.  This skeleton is the interface between the
+  user and the content.  During the creation of the
+  skeleton, right hooks are set up to display the content
+  and the simulation.
+** Massage the application
+
+
+* A Word about simulation
+  Currently, in the VLABS authoring platform, the simulation
+  is also part of the repository.  When the repository is
+  built, the code for the simulation is hosted on an
+  experiment server and when the experiment skeleton is
+  built, right hook is set up to serve the hosted
+  simulation.  
+
+  In later evolutions, any content that requires programming
+  are separate repositories that are built, hosted and
+  provided as services.  During authoring of the content of
+  an experiment, these components exposed as services are
+  embedded in the content using directives.
+
+* Compare the VLABS authoring platform with Open edX
+  Open edX provides content and learning management
+  systems.
+
+  |------------------+------------------------------------+--------------------------------------------+---+---|
+  |                  | Open edX                           | VLABS                                      |   |   |
+  |                  |                                    | Authoring platform                         |   |   |
+  |------------------+------------------------------------+--------------------------------------------+---+---|
+  | Authoring        | simple text, but is done           | light weight markup,                       |   |   |
+  |                  | through a studio.  No version      | any editor, version                        |   |   |
+  |                  | control.                           | controlled.                                |   |   |
+  |------------------+------------------------------------+--------------------------------------------+---+---|
+  | Uniform Look     | Provides a uniform look. but       | Dynamically apply different                |   |   |
+  |                  | no flexibility to change it.       | styles across all the experiments          |   |   |
+  |                  |                                    | based on a theme(new year, diwali, etc)    |   |   |
+  |------------------+------------------------------------+--------------------------------------------+---+---|
+  | Simulations      | The link to load the simulation    | The experiment skeleton is auto generated  |   |   |
+  |                  | has to be hard coded while         | with the right links to the content        |   |   |
+  |                  | writing the content.               | and simulation.                            |   |   |
+  |------------------+------------------------------------+--------------------------------------------+---+---|
+  | Light Weight     | The Open edX platform is           | A micro service architecture and therefore |   |   |
+  |                  | humongous beast that requires      | all the benefits of such an architecture   |   |   |
+  |                  | greater resources - RAM, CPU, etc. | can be harnessed.                          |   |   |
+  |------------------+------------------------------------+--------------------------------------------+---+---|
+  | Dynamic Bundling | There is no feature to             | This can be easily achieved.               |   |   |
+  |                  | create instant lab with bundling   |                                            |   |   |
+  |                  | a set of experiments based on a    |                                            |   |   |
+  |                  | certain criteria.                  |                                            |   |   |
+  |------------------+------------------------------------+--------------------------------------------+---+---|
+
+* Design of the VLABS authoring platform
+  The [[https://docs.google.com/drawings/d/1s_expWC1QOMXOHgLJHW40OB04FvJt--1vwpSVjhdoGY/edit?ts=5834280f][platform]] is designed as collaboration between multiple
+  services.  The tasks of creation of a repository, creation
+  of the experiment skeleton, hosting and mapping of content
+  to resource ids are provided as services through an
+  application programming interface.
+
+** Translator
+   This service creates a repository and creates the
+   experiment skeleton.
+
+** Resource Generator
+   This service builds the repository, creates a resource
+   map, and hosts the resources. 
+
+** Content Server
+   The resources are hosted on this server. 
+
+
+* Open Items
+  1. Provide the ability to the author to embed components
+     offered as a service.  For example, when authoring the
+     content for the merge sort experiment, the author would
+     like to create an array of numbers, split an array into
+     two, sort an array, merge two arrays, etc.  This can be
+     achieved by defining directives to do these tasks.
+     When an experiment is built, these directives are
+     interpreted to make the right service and achieve what
+     is directed.
+
+  2. The content server in the current implementation is not
+     a service and therefor a resource is not returned using
+     an API.

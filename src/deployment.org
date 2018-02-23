@@ -39,7 +39,6 @@
      #+END_EXAMPLE
 
 
-
 * Content Server
   1) set the proxy in wsgi.py
   2) mkdir /var/www/resources
@@ -56,3 +55,29 @@
   
 
   6) http://csnginx.vlabs.ac.in/resources/numerical-approximation-CSE04/simulation-CSE04/simulation-CSE04.html
+
+* Create and run an experiment - the whole nine yards
+** Lab spec
+ #+BEGIN_EXAMPLE
+ {
+         "experiment" : {
+                      "id": "e99800",
+                      "name": "Numerical Approximation",
+                      "overview": "This experiments deals with Numerical Approximation",
+                      "sections" : [
+                                 "Introduction",
+                                 "Objective",
+                                 "Manual",
+                                 "Theory",
+                                 "Procedure",
+                                 "Simulation",
+                                 "Further Reading"
+                                 ]},
+         "content-type": "org"
+ }
+ #+END_EXAMPLE
+** Create a repo for the experiment
+   1. Choose the above lab specification.
+   2. Run the api =http://<ip of
+      translater>/create_experiment=
+** Fill the content of the experiment

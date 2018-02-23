@@ -18,24 +18,28 @@
 
 * Motivation
 
-  While writing this document, Virtual Labs is using Open edX as the platform
-  for serving virtual labs.  Open edX platform is both a:
-  - learning management system (LMS), LMS provides features that allow an
-    instructor to manage the learning of students by setting up a learning
-    plan, evaluation, fixing dates for submission of home works, etc.
-  - content management server (CMS), CMS allows content to be added, edited and
-    served. 
+  While writing this document, Virtual Labs is using Open
+  edX as the platform for serving virtual labs.  Open edX
+  platform is both a:
+  - learning management system (LMS), LMS provides features
+    that allow an instructor to manage the learning of
+    students by setting up a learning plan, evaluation,
+    fixing dates for submission of home works, etc.
+  - content management server (CMS), CMS allows content to
+    be added, edited and served.
 
-  Though =Virtual Labs= is happy to leverage the features of LMS -
-  single-sign-on, persistence, uniform UI, the CMS becomes a bottleneck since
-  content editing is done through Open Edx studio.  The tying of content
-  editing through the studio undermines the freedom of using different editors
-  and formats that are more flexible to generate content - read as html - that
-  a browser can interpret.  
+  Though =Virtual Labs= is happy to leverage the features of
+  LMS - single-sign-on, persistence, uniform UI, the CMS
+  becomes a bottleneck since content editing is done through
+  Open Edx studio.  The tying of content editing through the
+  studio undermines the freedom of using different editors
+  and formats that are more flexible to generate content -
+  read as html - that a browser can interpret.
 
-  Apart from untethering the content creation from the hosting platform, the
-  platform should be able to provide other services like single sign on,
-  persistence, analytics and uniform user interface.
+  Apart from untethering the content creation from the
+  hosting platform, the platform should be able to provide
+  other services like single sign on, persistence, analytics
+  and uniform user interface.
 
 * [[./requirements.org][Requirements]]
 
