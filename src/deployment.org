@@ -26,7 +26,7 @@
      here content is filled. 
 
 * Resource Generator
-  1. Copy the public key to content serve authorized keys
+  1. Copy the public key to content service authorized keys
   2. set CS_DEST in /var/www/resource-generator/code/runtime/config/config.py
   3. create directory =/var/www/data=
   4. set the proxy in wsgi.py

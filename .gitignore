@@ -27,3 +27,4 @@ sitemap*
 lint_output
 elisp          
 literate-tools/
+*.html

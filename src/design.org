@@ -14,10 +14,8 @@
 
 * Design
   The design of the platform flows from this diagram.
-  #+BEGIN_HTML
-  <img src="https://docs.google.com/drawings/d/e/2PACX-1vTEiwPdyaMR3h9jmGLwbHYLZ1ajJQN2G9u1K5OXx3c8MjsOQbNrS8njjxLiMSSHsE45QExAuPOttC4F/pub?w=967&h=708">
-  <p align="center"> Platform with Content Server </p>
-  #+END_HTML
+#+html: <img src="https://docs.google.com/drawings/d/e/2PACX-1vTEiwPdyaMR3h9jmGLwbHYLZ1ajJQN2G9u1K5OXx3c8MjsOQbNrS8njjxLiMSSHsE45QExAuPOttC4F/pub?w=967&h=708">
+#+html:  <p align="center"> Platform with Content Server </p>
 
   Click [[https://docs.google.com/drawings/d/1s_expWC1QOMXOHgLJHW40OB04FvJt--1vwpSVjhdoGY/edit?ts=5834280f][=here=]] to edit the image.
 

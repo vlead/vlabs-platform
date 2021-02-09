@@ -110,19 +110,22 @@
 
 
 * Lab data service
-  The LDS module stores information about the lab and experiment
-  specifications. The LDS module also maintains a resource mapping between the
-  experiment IDs and their corresponding content.
+  The LDS module stores information about the lab and
+  experiment specifications. The LDS module also maintains a
+  resource mapping between the experiment IDs and their
+  corresponding content.
 
 
 * HTML resource generator
-  This module observes the hooks placed on the experiments and proceed to pull
-  the updated experiments and generate new HTML content files. It requests the
-  Lab Data Service for a resource map and adds any new resources generated to
-  this resource map. This resource map along with the new content is pushed
-  onto the content server.
+  This module observes the hooks placed on the experiments
+  and proceed to pull the updated experiments and generate
+  new HTML content files. It requests the Lab Data Service
+  for a resource map and adds any new resources generated to
+  this resource map. This resource map along with the new
+  content is pushed onto the content server.
 
 
 * Content Server
-  This server interacts with the web browsers. The web browser send a request
-  to the content server and the server responds with the corresponding resource content.
+  This server interacts with the web browsers. The web
+  browser send a request to the content server and the
+  server responds with the corresponding resource content.

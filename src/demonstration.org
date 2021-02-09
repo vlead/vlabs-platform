@@ -29,14 +29,14 @@
   Virtual Labs is a collection of virtual experiments
   developed by multiple institutes.  To apply a uniform set
   of styles across all the experiments is a challenge when
-  an html file are the basic unit of an experiment.  This
+  an html file is the basic unit of an experiment.  This
   model removes the flexibility of applying new styles when
   an experiment is rendered on the browser.
 
   To overcome these limitations a new model of experiment
   authoring from now on called VLABS authoring platform is
   designed and built.  The VLABS authoring platform provides
-  other flexibilites too as they revealed in the following
+  other flexibilites too as they are revealed in the following
   sections.
 
 * Finalize a specification
@@ -90,7 +90,7 @@
   The platform team communicates the [[https://github.com/test-platform-to-to-deleted/numerical-approximation-e99800][url]] of the repository
   to the author.
 ** Access the API to create the repo
-   1. URL is http://192.168.33.3/create_experiment
+   1. URL is http://192.168.33.2/create_experiment
    2. Method is =POST=
    3. Payload is JSON and is the above spec
    4. Once this successful, a [[https://github.com/test-platform-to-to-deleted/numerical-approximation-e99800][repo]] is created. 
@@ -113,7 +113,7 @@
       content to the content server
    2. URL is http://192.168.33.4/resource
    3. Method is =POST=
-   4. Payload is
+   4. Payload is form-data where key is =url= and value is
       =https://github.com/test-platform-to-to-deleted/numerical-approximation-e99800=
 
 ** Massage the content in the content server
@@ -125,6 +125,14 @@
   user and the content.  During the creation of the
   skeleton, right hooks are set up to display the content
   and the simulation.
+** Access the API to create the skeleton
+   1. URL is http://192.168.33.2/create_skeleton
+   2. Method is =POST=
+   3. Payload is JSON and is spec
+   4. Once this successful, a file =Numerical
+      Approximation-e99800.html= is generated in the
+      translator server at the location =/var/www/translators/code=
+
 ** Massage the application
 
 
